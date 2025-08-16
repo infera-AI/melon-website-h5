@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>成为合作伙伴 - Melon | AI音乐生成器</title>
+    <meta name="description" content="加入Melon合作伙伴计划，通过推广AI音乐生成器获得丰厚收益，享受30%佣金分成">
+    <link rel="icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    
+    <!-- 样式文件 -->
+    <link rel="stylesheet" href="mubert-style.css">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <style>
+        /* 合作伙伴页面专用样式 */
+        .partner-hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background-size: 200% 200%;
+            animation: gradientShift 3s ease infinite;
+            padding: 120px 0 80px;
+            text-align: center;
+            color: white;
+        }
+
+        .partner-hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #ffffff, #f0f0f0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .partner-hero p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto 30px;
+        }
+
+        .commission-badge {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 25px;
+            padding: 10px 25px;
+            display: inline-block;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .partner-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 80px 20px;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-bottom: 80px;
+        }
+
+        .benefit-card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: var(--shadow-medium);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-heavy);
+        }
+
+        .benefit-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: white;
+            font-size: 2rem;
+        }
+
+        .benefit-title {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--main-text-color);
+        }
+
+        .benefit-description {
+            color: var(--secondary-text-color);
+            line-height: 1.6;
+        }
+
+        .stats-section {
+            background: var(--card-background);
+            border-radius: 20px;
+            padding: 60px;
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: var(--logo-color);
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            color: var(--secondary-text-color);
+            font-size: 1.1rem;
+        }
+
+        .how-it-works {
+            margin-bottom: 80px;
+        }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .step-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: var(--shadow-light);
+            position: relative;
+        }
+
+        .step-number {
+            position: absolute;
+            top: -15px;
+            left: 20px;
+            width: 30px;
+            height: 30px;
+            background: var(--logo-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .step-title {
+            font-size: 1.3rem;
+            margin: 20px 0 15px;
+            color: var(--main-text-color);
+        }
+
+        .step-description {
+            color: var(--secondary-text-color);
+            line-height: 1.6;
+        }
+
+        .cta-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 20px;
+            padding: 60px;
+            text-align: center;
+            color: white;
+            margin-bottom: 80px;
+        }
+
+        .cta-title {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .cta-description {
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: white;
+            color: var(--logo-color);
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            padding: 15px 30px;
+            border: 2px solid white;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background: white;
+            color: var(--logo-color);
+        }
+
+        .faq-section {
+            margin-bottom: 80px;
+        }
+
+        .faq-item {
+            background: white;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow-light);
+        }
+
+        .faq-question {
+            padding: 25px;
+            background: var(--card-background);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            color: var(--main-text-color);
+        }
+
+        .faq-answer {
+            padding: 0 25px;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            color: var(--secondary-text-color);
+            line-height: 1.6;
+        }
+
+        .faq-answer.active {
+            padding: 25px;
+            max-height: 200px;
+        }
+
+        .faq-toggle {
+            transition: transform 0.3s ease;
+        }
+
+        .faq-toggle.active {
+            transform: rotate(180deg);
+        }
+
+        @media (max-width: 768px) {
+            .partner-hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .stats-section,
+            .cta-section {
+                padding: 40px 20px;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .benefits-grid,
+            .steps-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <div id="header-placeholder">
+        <!-- Header将通过JavaScript动态加载 -->
+    </div>
+
+    <!-- Hero Section -->
+    <section class="partner-hero">
+        <div class="container">
+            <h1>成为Melon合作伙伴</h1>
+            <p>加入我们的合作伙伴计划，通过推广AI音乐生成器获得丰厚收益</p>
+            <div class="commission-badge">
+                <i class="fas fa-percentage"></i> 30% 佣金分成
+            </div>
+        </div>
+    </section>
+
+    <!-- 合作伙伴内容 -->
+    <section class="partner-container">
+        <!-- 收益统计 -->
+        <div class="stats-section">
+            <h2>合作伙伴收益统计</h2>
+            <p>看看其他合作伙伴的成就</p>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number">$2.5M+</div>
+                    <div class="stat-label">总佣金支付</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">15,000+</div>
+                    <div class="stat-label">活跃合作伙伴</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">$1,200</div>
+                    <div class="stat-label">平均月收入</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">98%</div>
+                    <div class="stat-label">满意度</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 合作伙伴优势 -->
+        <div class="benefits-grid">
+            <div class="benefit-card">
+                <div class="benefit-icon">
+                    <i class="fas fa-dollar-sign"></i>
+                </div>
+                <h3 class="benefit-title">高额佣金</h3>
+                <p class="benefit-description">享受30%的佣金分成，每笔成功推荐都能获得丰厚回报</p>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h3 class="benefit-title">实时数据</h3>
+                <p class="benefit-description">实时查看推广效果、点击量、转化率等详细数据</p>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon">
+                    <i class="fas fa-tools"></i>
+                </div>
+                <h3 class="benefit-title">推广工具</h3>
+                <p class="benefit-description">提供丰富的推广素材、链接生成器和营销工具</p>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon">
+                    <i class="fas fa-headset"></i>
+                </div>
+                <h3 class="benefit-title">专属支持</h3>
+                <p class="benefit-description">获得专属客户经理和技术支持，助您成功推广</p>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon">
+                    <i class="fas fa-gift"></i>
+                </div>
+                <h3 class="benefit-title">奖励计划</h3>
+                <p class="benefit-description">参与月度、季度奖励计划，获得额外奖金和福利</p>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon">
+                    <i class="fas fa-globe"></i>
+                </div>
+                <h3 class="benefit-title">全球市场</h3>
+                <p class="benefit-description">面向全球市场，无地域限制，扩大您的收益潜力</p>
+            </div>
+        </div>
+
+        <!-- 如何开始 -->
+        <div class="how-it-works">
+            <h2>如何开始</h2>
+            <p>只需4个简单步骤，即可开始您的合作伙伴之旅</p>
+            <div class="steps-grid">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <h3 class="step-title">注册账户</h3>
+                    <p class="step-description">填写简单的注册表单，创建您的合作伙伴账户</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <h3 class="step-title">获取推广链接</h3>
+                    <p class="step-description">系统自动生成您的专属推广链接和推广素材</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <h3 class="step-title">开始推广</h3>
+                    <p class="step-description">在您的网站、社交媒体或任何渠道分享推广链接</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">4</div>
+                    <h3 class="step-title">获得收益</h3>
+                    <p class="step-description">当用户通过您的链接注册并付费时，您将获得佣金</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 行动号召 -->
+        <div class="cta-section">
+            <h2 class="cta-title">立即开始赚取收益</h2>
+            <p class="cta-description">加入我们的合作伙伴计划，开始您的收益之旅</p>
+            <div class="cta-buttons">
+                <a href="partner-signup.html" class="btn-primary">立即注册</a>
+                <a href="partner-dashboard.html" class="btn-secondary">查看演示</a>
+            </div>
+        </div>
+
+        <!-- 常见问题 -->
+        <div class="faq-section">
+            <h2>常见问题</h2>
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>如何计算佣金？</span>
+                    <i class="fas fa-chevron-down faq-toggle"></i>
+                </div>
+                <div class="faq-answer">
+                    佣金基于用户通过您的推广链接产生的实际付费金额计算，税率为30%。例如，如果用户购买了$100的套餐，您将获得$30的佣金。
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>什么时候可以提现？</span>
+                    <i class="fas fa-chevron-down faq-toggle"></i>
+                </div>
+                <div class="faq-answer">
+                    当您的账户余额达到$50时即可申请提现。提现通常在3-5个工作日内处理完成，支持PayPal、银行转账等多种方式。
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>推广链接有效期是多久？</span>
+                    <i class="fas fa-chevron-down faq-toggle"></i>
+                </div>
+                <div class="faq-answer">
+                    您的推广链接永久有效，不会过期。用户通过您的链接注册后，其后续的所有付费行为都会为您产生佣金。
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>可以推广到哪些地区？</span>
+                    <i class="fas fa-chevron-down faq-toggle"></i>
+                </div>
+                <div class="faq-answer">
+                    我们支持全球推广，没有地域限制。无论您身在何处，都可以参与我们的合作伙伴计划并赚取收益。
+                </div>
+            </div>
+        </div>
+    </section>
+
+     <!-- 页脚 -->
+     <div id="footer-placeholder">
+        <!-- Footer将通过JavaScript动态加载 -->
+    </div>
+
+     <!-- JavaScript -->
+     <script src="js/common.js"></script>
+    <script>
+        // FAQ 切换功能
+        function toggleFAQ(element) {
+            const answer = element.nextElementSibling;
+            const toggle = element.querySelector('.faq-toggle');
+            
+            if (answer.classList.contains('active')) {
+                answer.classList.remove('active');
+                toggle.classList.remove('active');
+            } else {
+                // 关闭其他打开的FAQ
+                document.querySelectorAll('.faq-answer.active').forEach(item => {
+                    item.classList.remove('active');
+                });
+                document.querySelectorAll('.faq-toggle.active').forEach(item => {
+                    item.classList.remove('active');
+                });
+                
+                answer.classList.add('active');
+                toggle.classList.add('active');
+            }
+        }
+
+        // 页面加载动画
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.benefit-card, .step-card');
+            cards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.style.opacity = '0';
+                    card.style.transform = 'translateY(30px)';
+                    card.style.transition = 'all 0.6s ease';
+                    
+                    setTimeout(() => {
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0)';
+                    }, 100);
+                }, index * 100);
+            });
+        });
+    </script>
+</body>
+</html>

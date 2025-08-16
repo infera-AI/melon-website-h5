@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>Melon Play - AI音乐播放器 | 在应用中收听</title>
+    <meta name="description" content="Melon Play为生活的每个时刻创建无限的AI配乐，从平静冥想到极限运动，让AI为您定制专属音乐">
+    <link rel="icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    
+    <!-- 样式文件 -->
+    <link rel="stylesheet" href="mubert-style.css">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <style>
+        /* Play页面专用样式 */
+        .play-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .play-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .play-header h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+        }
+
+        .play-header p {
+            font-size: 1.3rem;
+            color: #666;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+
+        /* 音乐播放器 */
+        .music-player {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            margin-bottom: 50px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .player-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            opacity: 0.05;
+            z-index: 0;
+        }
+
+        .player-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .now-playing {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .album-art {
+            width: 200px;
+            height: 200px;
+            border-radius: 20px;
+            margin: 0 auto 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .album-art.playing {
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .album-art::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            background: white;
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+        .album-art i {
+            font-size: 80px;
+            color: white;
+            z-index: 2;
+            position: relative;
+        }
+
+        .track-info h2 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .track-info p {
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        .player-controls {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .control-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: none;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .control-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .play-btn {
+            width: 80px;
+            height: 80px;
+            font-size: 24px;
+        }
+
+        .progress-container {
+            margin-bottom: 20px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e9ecef;
+            border-radius: 4px;
+            overflow: hidden;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .time-display {
+            display: flex;
+            justify-content: space-between;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .volume-control {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .volume-slider {
+            width: 100px;
+            height: 4px;
+            background: #e9ecef;
+            border-radius: 2px;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .volume-slider::-webkit-slider-thumb {
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #667eea;
+            cursor: pointer;
+        }
+
+        /* 情绪选择 */
+        .mood-selection {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            margin-bottom: 50px;
+        }
+
+        .mood-selection h2 {
+            font-size: 2rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .mood-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .mood-card {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .mood-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .mood-card.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-color: #667eea;
+        }
+
+        .mood-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .mood-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .mood-description {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .mood-card.active .mood-description {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        /* 播放列表 */
+        .playlist-section {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            margin-bottom: 50px;
+        }
+
+        .playlist-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .playlist-header h2 {
+            font-size: 2rem;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .playlist-controls {
+            display: flex;
+            gap: 15px;
+        }
+
+        .playlist-btn {
+            padding: 10px 20px;
+            border: 2px solid #667eea;
+            background: transparent;
+            color: #667eea;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .playlist-btn:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        .playlist-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .playlist-item {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .playlist-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .playlist-item.playing {
+            border-color: #667eea;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .playlist-item-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .playlist-item-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+        }
+
+        .playlist-item-info h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .playlist-item-info p {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .playlist-item.playing .playlist-item-info p {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .playlist-item-duration {
+            font-size: 0.8rem;
+            color: #999;
+            text-align: right;
+        }
+
+        .playlist-item.playing .playlist-item-duration {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* 下载应用 */
+        .download-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 20px;
+            padding: 50px;
+            text-align: center;
+        }
+
+        .download-section h2 {
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .download-section p {
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+
+        .download-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .download-btn {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            text-decoration: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .download-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-3px);
+            color: white;
+        }
+
+        .download-btn i {
+            font-size: 24px;
+        }
+
+        .download-btn-text h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .download-btn-text p {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin: 0;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .play-container {
+                padding: 20px 15px;
+            }
+
+            .play-header h1 {
+                font-size: 2.5rem;
+            }
+
+            .music-player,
+            .mood-selection,
+            .playlist-section,
+            .download-section {
+                padding: 25px;
+            }
+
+            .player-controls {
+                gap: 20px;
+            }
+
+            .control-btn {
+                width: 50px;
+                height: 50px;
+                font-size: 18px;
+            }
+
+            .play-btn {
+                width: 70px;
+                height: 70px;
+                font-size: 22px;
+            }
+
+            .mood-grid,
+            .playlist-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .download-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .album-art {
+                width: 150px;
+                height: 150px;
+            }
+
+            .album-art i {
+                font-size: 60px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <div id="header-placeholder">
+        <!-- Header将通过JavaScript动态加载 -->
+    </div>
+
+    <!-- 主要内容 -->
+    <main class="play-container">
+        <!-- 页面标题 -->
+        <div class="play-header">
+            <h1>Melon Play</h1>
+            <p>为生活的每个时刻创建无限的AI配乐，从平静冥想到极限运动，让AI为您定制专属音乐</p>
+        </div>
+
+        <!-- 音乐播放器 -->
+        <div class="music-player">
+            <div class="player-background"></div>
+            <div class="player-content">
+                <div class="now-playing">
+                    <div class="album-art" id="albumArt">
+                        <i class="fas fa-music"></i>
+                    </div>
+                    <div class="track-info">
+                        <h2 id="trackTitle">选择情绪开始播放</h2>
+                        <p id="trackArtist">Melon AI</p>
+                    </div>
+                </div>
+
+                <div class="player-controls">
+                    <button class="control-btn" onclick="previousTrack()">
+                        <i class="fas fa-step-backward"></i>
+                    </button>
+                    <button class="control-btn play-btn" onclick="togglePlay()" id="playBtn">
+                        <i class="fas fa-play" id="playIcon"></i>
+                    </button>
+                    <button class="control-btn" onclick="nextTrack()">
+                        <i class="fas fa-step-forward"></i>
+                    </button>
+                </div>
+
+                <div class="progress-container">
+                    <div class="progress-bar" onclick="seekTo(event)">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                    <div class="time-display">
+                        <span id="currentTime">0:00</span>
+                        <span id="totalTime">0:00</span>
+                    </div>
+                </div>
+
+                <div class="volume-control">
+                    <i class="fas fa-volume-down"></i>
+                    <input type="range" class="volume-slider" min="0" max="100" value="50" onchange="setVolume(this.value)">
+                    <i class="fas fa-volume-up"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- 情绪选择 -->
+        <div class="mood-selection">
+            <h2>选择您的情绪</h2>
+            <div class="mood-grid">
+                <div class="mood-card" onclick="selectMood('relax', this)">
+                    <div class="mood-icon">😌</div>
+                    <div class="mood-name">放松</div>
+                    <div class="mood-description">平静冥想，舒缓压力</div>
+                </div>
+                <div class="mood-card" onclick="selectMood('energetic', this)">
+                    <div class="mood-icon">⚡</div>
+                    <div class="mood-name">活力</div>
+                    <div class="mood-description">充满能量，激发动力</div>
+                </div>
+                <div class="mood-card" onclick="selectMood('focus', this)">
+                    <div class="mood-icon">🎯</div>
+                    <div class="mood-name">专注</div>
+                    <div class="mood-description">提高注意力，增强效率</div>
+                </div>
+                <div class="mood-card" onclick="selectMood('romantic', this)">
+                    <div class="mood-icon">💕</div>
+                    <div class="mood-name">浪漫</div>
+                    <div class="mood-description">温馨浪漫，营造氛围</div>
+                </div>
+                <div class="mood-card" onclick="selectMood('adventure', this)">
+                    <div class="mood-icon">🏔️</div>
+                    <div class="mood-name">冒险</div>
+                    <div class="mood-description">刺激冒险，探索未知</div>
+                </div>
+                <div class="mood-card" onclick="selectMood('nostalgic', this)">
+                    <div class="mood-icon">🕰️</div>
+                    <div class="mood-name">怀旧</div>
+                    <div class="mood-description">回忆往昔，温暖时光</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 播放列表 -->
+        <div class="playlist-section">
+            <div class="playlist-header">
+                <h2>推荐播放列表</h2>
+                <div class="playlist-controls">
+                    <button class="playlist-btn" onclick="shufflePlaylist()">
+                        <i class="fas fa-random"></i> 随机播放
+                    </button>
+                    <button class="playlist-btn" onclick="createPlaylist()">
+                        <i class="fas fa-plus"></i> 创建列表
+                    </button>
+                </div>
+            </div>
+            <div class="playlist-grid" id="playlistGrid">
+                <!-- 播放列表项将通过JavaScript动态生成 -->
+            </div>
+        </div>
+
+        <!-- 下载应用 -->
+        <div class="download-section">
+            <h2>下载Melon Play应用</h2>
+            <p>随时随地享受AI音乐，支持离线播放和个性化推荐</p>
+            <div class="download-buttons">
+                <a href="#" class="download-btn">
+                    <i class="fab fa-apple"></i>
+                    <div class="download-btn-text">
+                        <h3>App Store</h3>
+                        <p>iOS应用</p>
+                    </div>
+                </a>
+                <a href="#" class="download-btn">
+                    <i class="fab fa-google-play"></i>
+                    <div class="download-btn-text">
+                        <h3>Google Play</h3>
+                        <p>Android应用</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </main>
+      
+    
+    <!-- 页脚 -->
+    <div id="footer-placeholder">
+        <!-- Footer将通过JavaScript动态加载 -->
+    </div>
+
+    <!-- JavaScript -->
+    <script src="js/common.js"></script>
+    <script>
+        // 播放器状态
+        let isPlaying = false;
+        let currentTrack = 0;
+        let currentMood = '';
+        let progress = 0;
+        let volume = 50;
+
+        // 模拟音乐数据
+        const musicData = {
+            relax: [
+                { title: "宁静湖面", artist: "Melon AI", duration: "3:45", icon: "🌊" },
+                { title: "轻柔微风", artist: "Melon AI", duration: "4:20", icon: "🍃" },
+                { title: "冥想时光", artist: "Melon AI", duration: "5:15", icon: "��" }
+            ],
+            energetic: [
+                { title: "活力四射", artist: "Melon AI", duration: "3:30", icon: "⚡" },
+                { title: "动力源泉", artist: "Melon AI", duration: "4:05", icon: "🔥" },
+                { title: "激情燃烧", artist: "Melon AI", duration: "3:55", icon: "��" }
+            ],
+            focus: [
+                { title: "专注时刻", artist: "Melon AI", duration: "4:10", icon: "🎯" },
+                { title: "思维清晰", artist: "Melon AI", duration: "3:50", icon: "🧠" },
+                { title: "效率提升", artist: "Melon AI", duration: "4:25", icon: "��" }
+            ],
+            romantic: [
+                { title: "浪漫之夜", artist: "Melon AI", duration: "4:30", icon: "💕" },
+                { title: "温馨时光", artist: "Melon AI", duration: "3:55", icon: "🕯️" },
+                { title: "甜蜜回忆", artist: "Melon AI", duration: "4:15", icon: "��" }
+            ],
+            adventure: [
+                { title: "探索未知", artist: "Melon AI", duration: "4:40", icon: "🏔️" },
+                { title: "冒险精神", artist: "Melon AI", duration: "3:35", icon: "🗺️" },
+                { title: "勇敢前行", artist: "Melon AI", duration: "4:50", icon: "⚔️" }
+            ],
+            nostalgic: [
+                { title: "往日时光", artist: "Melon AI", duration: "4:20", icon: "🕰️" },
+                { title: "温暖回忆", artist: "Melon AI", duration: "3:45", icon: "📷" },
+                { title: "岁月如歌", artist: "Melon AI", duration: "4:10", icon: "📖" }
+            ]
+        };
+
+        // 初始化页面
+        document.addEventListener('DOMContentLoaded', function() {
+            updatePlaylist();
+            startProgressSimulation();
+        });
+
+        // 选择情绪
+        function selectMood(mood, element) {
+            // 移除所有active类
+            document.querySelectorAll('.mood-card').forEach(card => {
+                card.classList.remove('active');
+            });
+            
+            // 添加active类到当前卡片
+            element.classList.add('active');
+            
+            currentMood = mood;
+            currentTrack = 0;
+            updatePlaylist();
+            updateTrackInfo();
+            
+            // 自动开始播放
+            if (!isPlaying) {
+                togglePlay();
+            }
+        }
+
+        // 切换播放/暂停
+        function togglePlay() {
+            if (!currentMood) {
+                alert('请先选择一种情绪');
+                return;
+            }
+
+            isPlaying = !isPlaying;
+            const playBtn = document.getElementById('playBtn');
+            const playIcon = document.getElementById('playIcon');
+            const albumArt = document.getElementById('albumArt');
+
+            if (isPlaying) {
+                playIcon.className = 'fas fa-pause';
+                albumArt.classList.add('playing');
+            } else {
+                playIcon.className = 'fas fa-play';
+                albumArt.classList.remove('playing');
+            }
+        }
+
+        // 上一首
+        function previousTrack() {
+            if (!currentMood) return;
+            
+            const tracks = musicData[currentMood];
+            currentTrack = (currentTrack - 1 + tracks.length) % tracks.length;
+            updateTrackInfo();
+            updatePlaylist();
+        }
+
+        // 下一首
+        function nextTrack() {
+            if (!currentMood) return;
+            
+            const tracks = musicData[currentMood];
+            currentTrack = (currentTrack + 1) % tracks.length;
+            updateTrackInfo();
+            updatePlaylist();
+        }
+
+        // 更新播放列表
+        function updatePlaylist() {
+            const playlistGrid = document.getElementById('playlistGrid');
+            playlistGrid.innerHTML = '';
+
+            if (!currentMood) {
+                playlistGrid.innerHTML = '<p style="text-align: center; color: #666; grid-column: 1/-1;">选择情绪查看播放列表</p>';
+                return;
+            }
+
+            const tracks = musicData[currentMood];
+            tracks.forEach((track, index) => {
+                const playlistItem = document.createElement('div');
+                playlistItem.className = `playlist-item ${index === currentTrack ? 'playing' : ''}`;
+                playlistItem.onclick = () => playTrack(index);
+
+                playlistItem.innerHTML = `
+                    <div class="playlist-item-header">
+                        <div class="playlist-item-icon">
+                            ${track.icon}
+                        </div>
+                        <div class="playlist-item-info">
+                            <h3>${track.title}</h3>
+                            <p>${track.artist}</p>
+                        </div>
+                    </div>
+                    <div class="playlist-item-duration">${track.duration}</div>
+                `;
+
+                playlistGrid.appendChild(playlistItem);
+            });
+        }
+
+        // 播放指定曲目
+        function playTrack(index) {
+            currentTrack = index;
+            updateTrackInfo();
+            updatePlaylist();
+            
+            if (!isPlaying) {
+                togglePlay();
+            }
+        }
+
+        // 更新曲目信息
+        function updateTrackInfo() {
+            if (!currentMood) return;
+            
+            const tracks = musicData[currentMood];
+            const track = tracks[currentTrack];
+            
+            document.getElementById('trackTitle').textContent = track.title;
+            document.getElementById('trackArtist').textContent = track.artist;
+            document.getElementById('totalTime').textContent = track.duration;
+        }
+
+        // 进度条点击
+        function seekTo(event) {
+            const progressBar = event.currentTarget;
+            const rect = progressBar.getBoundingClientRect();
+            const clickX = event.clientX - rect.left;
+            const percentage = (clickX / rect.width) * 100;
+            
+            progress = Math.max(0, Math.min(100, percentage));
+            document.getElementById('progressFill').style.width = progress + '%';
+            
+            // 更新时间显示
+            const totalSeconds = 225; // 假设3:45 = 225秒
+            const currentSeconds = Math.floor((progress / 100) * totalSeconds);
+            const minutes = Math.floor(currentSeconds / 60);
+            const seconds = currentSeconds % 60;
+            document.getElementById('currentTime').textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+        }
+
+        // 设置音量
+        function setVolume(value) {
+            volume = value;
+            // 这里可以添加实际的音量控制逻辑
+        }
+
+        // 模拟进度更新
+        function startProgressSimulation() {
+            setInterval(() => {
+                if (isPlaying && currentMood) {
+                    progress += 0.5;
+                    if (progress >= 100) {
+                        progress = 0;
+                        nextTrack();
+                    }
+                    
+                    document.getElementById('progressFill').style.width = progress + '%';
+                    
+                    // 更新时间显示
+                    const totalSeconds = 225;
+                    const currentSeconds = Math.floor((progress / 100) * totalSeconds);
+                    const minutes = Math.floor(currentSeconds / 60);
+                    const seconds = currentSeconds % 60;
+                    document.getElementById('currentTime').textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+                }
+            }, 1000);
+        }
+
+        // 随机播放
+        function shufflePlaylist() {
+            if (!currentMood) return;
+            
+            const tracks = musicData[currentMood];
+            currentTrack = Math.floor(Math.random() * tracks.length);
+            updateTrackInfo();
+            updatePlaylist();
+            
+            if (!isPlaying) {
+                togglePlay();
+            }
+        }
+
+        // 创建播放列表
+        function createPlaylist() {
+            alert('播放列表创建功能即将上线！');
+        }
+
+        // 滚动动画
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // 观察所有卡片元素
+        document.querySelectorAll('.mood-card, .playlist-item').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = 'all 0.6s ease';
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>产品 - Melon | AI音乐生成器</title>
+    <meta name="description" content="探索Melon的完整产品线：Render、Studio、API和Play，为不同需求提供专业的AI音乐解决方案">
+    <link rel="icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    
+    <!-- 样式文件 -->
+    <link rel="stylesheet" href="mubert-style.css">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <style>
+        /* 产品页面专用样式 */
+        .products-hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background-size: 200% 200%;
+            animation: gradientShift 3s ease infinite;
+            padding: 120px 0 80px;
+            text-align: center;
+            color: white;
+        }
+
+        .products-hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #ffffff, #f0f0f0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .products-hero p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .products-grid {
+            padding: 80px 0;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: var(--shadow-medium);
+            overflow: hidden;
+            margin-bottom: 40px;
+            transition: all 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-heavy);
+        }
+
+        .product-image {
+            height: 250px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 4rem;
+        }
+
+        .product-content {
+            padding: 40px;
+        }
+
+        .product-title {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .product-subtitle {
+            font-size: 1.1rem;
+            color: var(--secondary-text-color);
+            margin-bottom: 20px;
+        }
+
+        .product-description {
+            color: var(--main-text-color);
+            line-height: 1.8;
+            margin-bottom: 30px;
+        }
+
+        .product-features {
+            list-style: none;
+            margin-bottom: 30px;
+        }
+
+        .product-features li {
+            padding: 8px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .product-features li::before {
+            content: '✓';
+            color: #4CAF50;
+            font-weight: bold;
+        }
+
+        .product-pricing {
+            background: var(--card-background);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+        }
+
+        .price {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--logo-color);
+        }
+
+        .price-period {
+            color: var(--secondary-text-color);
+            font-size: 0.9rem;
+        }
+
+        .product-cta {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--logo-color);
+            padding: 12px 24px;
+            border: 2px solid var(--logo-color);
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background: var(--logo-color);
+            color: white;
+        }
+
+        .comparison-table {
+            background: white;
+            border-radius: 20px;
+            box-shadow: var(--shadow-medium);
+            overflow: hidden;
+            margin: 80px auto;
+            max-width: 1200px;
+        }
+
+        .comparison-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .comparison-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            padding: 20px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .comparison-table th {
+            background: var(--card-background);
+            font-weight: 600;
+        }
+
+        .feature-check {
+            color: #4CAF50;
+            font-weight: bold;
+        }
+
+        .feature-cross {
+            color: #f44336;
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            .products-hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .product-content {
+                padding: 30px 20px;
+            }
+
+            .product-cta {
+                flex-direction: column;
+            }
+
+            .comparison-table {
+                overflow-x: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <div id="header-placeholder">
+        <!-- Header将通过JavaScript动态加载 -->
+    </div>
+
+    <!-- Hero Section -->
+    <section class="products-hero">
+        <div class="container">
+            <h1>探索我们的产品</h1>
+            <p>为不同需求提供专业的AI音乐解决方案，从个人创作者到企业级应用</p>
+        </div>
+    </section>
+
+    <!-- 产品展示 -->
+    <section class="products-grid">
+        <div class="container">
+            <!-- Melon Render -->
+            <div class="product-card">
+                <div class="product-image">
+                    <i class="fas fa-music"></i>
+                </div>
+                <div class="product-content">
+                    <h2 class="product-title">Melon Render</h2>
+                    <p class="product-subtitle">为内容创作者</p>
+                    <p class="product-description">
+                        生成适合您内容情绪和时长的AI配乐。即时、轻松、完美。无论您是制作YouTube视频、播客还是社交媒体内容，Melon Render都能为您提供专业的背景音乐。
+                    </p>
+                    <ul class="product-features">
+                        <li>即时音乐生成</li>
+                        <li>情绪和风格匹配</li>
+                        <li>免版税使用</li>
+                        <li>高质量音频输出</li>
+                        <li>简单易用的界面</li>
+                    </ul>
+                    <div class="product-pricing">
+                        <div class="price">免费</div>
+                        <div class="price-period">基础功能完全免费</div>
+                    </div>
+                    <div class="product-cta">
+                        <a href="/render" class="btn-primary">立即开始</a>
+                        <a href="#" class="btn-secondary">了解更多</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Melon Studio -->
+            <div class="product-card">
+                <div class="product-image">
+                    <i class="fas fa-microphone"></i>
+                </div>
+                <div class="product-content">
+                    <h2 class="product-title">Melon Studio</h2>
+                    <p class="product-subtitle">为艺术家</p>
+                    <p class="product-description">
+                        通过贡献样本和循环赚钱。与AI合作制作令人难以置信的作品。将您的音乐才能转化为收入，同时帮助训练更好的AI模型。
+                    </p>
+                    <ul class="product-features">
+                        <li>贡献音乐样本</li>
+                        <li>获得版税收入</li>
+                        <li>AI协作创作</li>
+                        <li>专业音频工具</li>
+                        <li>全球音乐社区</li>
+                    </ul>
+                    <div class="product-pricing">
+                        <div class="price">收入分成</div>
+                        <div class="price-period">根据贡献获得收益</div>
+                    </div>
+                    <div class="product-cta">
+                        <a href="https://studio.melon.com" class="btn-primary">开始贡献</a>
+                        <a href="#" class="btn-secondary">查看收益</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Melon API -->
+            <div class="product-card">
+                <div class="product-image">
+                    <i class="fas fa-code"></i>
+                </div>
+                <div class="product-content">
+                    <h2 class="product-title">Melon API</h2>
+                    <p class="product-subtitle">为开发者和品牌</p>
+                    <p class="product-description">
+                        为您的产品获取原创AI音乐，无压力，免版税。使用个性化AI体验发展您的业务。集成到您的应用、游戏或平台中。
+                    </p>
+                    <ul class="product-features">
+                        <li>RESTful API接口</li>
+                        <li>实时音乐生成</li>
+                        <li>自定义参数</li>
+                        <li>企业级支持</li>
+                        <li>高可用性保证</li>
+                    </ul>
+                    <div class="product-pricing">
+                        <div class="price">定制价格</div>
+                        <div class="price-period">根据使用量定价</div>
+                    </div>
+                    <div class="product-cta">
+                        <a href="https://api.melon.com" class="btn-primary">申请演示</a>
+                        <a href="#" class="btn-secondary">查看文档</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Melon Play -->
+            <div class="product-card">
+                <div class="product-image">
+                    <i class="fas fa-headphones"></i>
+                </div>
+                <div class="product-content">
+                    <h2 class="product-title">Melon Play</h2>
+                    <p class="product-subtitle">为听众</p>
+                    <p class="product-description">
+                        找到适合任何时刻的AI曲调。放松、训练、工作或只是聆听。无限的音乐体验，为生活的每个瞬间提供完美配乐。
+                    </p>
+                    <ul class="product-features">
+                        <li>无限音乐流</li>
+                        <li>情绪匹配</li>
+                        <li>离线下载</li>
+                        <li>个性化推荐</li>
+                        <li>多平台同步</li>
+                    </ul>
+                    <div class="product-pricing">
+                        <div class="price">免费 + 高级版</div>
+                        <div class="price-period">基础功能免费，高级功能付费</div>
+                    </div>
+                    <div class="product-cta">
+                        <a href="https://playapp.melon.com" class="btn-primary">下载应用</a>
+                        <a href="#" class="btn-secondary">查看功能</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 产品对比表 -->
+    <section class="comparison-table">
+        <div class="comparison-header">
+            <h2>产品功能对比</h2>
+            <p>选择最适合您需求的产品</p>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>功能</th>
+                    <th>Render</th>
+                    <th>Studio</th>
+                    <th>API</th>
+                    <th>Play</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>音乐生成</td>
+                    <td><span class="feature-check">✓</span></td>
+                    <td><span class="feature-check">✓</span></td>
+                    <td><span class="feature-check">✓</span></td>
+                    <td><span class="feature-check">✓</span></td>
+                </tr>
+                <tr>
+                    <td>商业使用</td>
+                    <td><span class="feature-check">✓</span></td>
+                    <td><span class="feature-check">✓</span></td>
+                    <td><span class="feature-check">✓</span></td>
+                    <td><span class="feature-cross">✗</span></td>
+                </tr>
+                <tr>
+                    <td>API访问</td>
+                    <td><span class="feature-cross">✗</span></td>
+                    <td><span class="feature-cross">✗</span></td>
+                    <td><span class="feature-check">✓</span></td>
+                    <td><span class="feature-cross">✗</span></td>
+                </tr>
+                <tr>
+                    <td>收入分成</td>
+                    <td><span class="feature-cross">✗</span></td>
+                    <td><span class="feature-check">✓</span></td>
+                    <td><span class="feature-cross">✗</span></td>
+                    <td><span class="feature-cross">✗</span></td>
+                </tr>
+                <tr>
+                    <td>移动应用</td>
+                    <td><span class="feature-cross">✗</span></td>
+                    <td><span class="feature-cross">✗</span></td>
+                    <td><span class="feature-cross">✗</span></td>
+                    <td><span class="feature-check">✓</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+      <!-- 页脚 -->
+      <div id="footer-placeholder">
+        <!-- Footer将通过JavaScript动态加载 -->
+    </div>
+
+    <!-- JavaScript -->
+    <script src="js/common.js"></script>
+    
+</body>
+</html>
