@@ -3,7 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Melon - 注册登录</title>
+    <title>Melon - 邮箱订阅 & 快速登录</title>
+    <link rel="icon" type="image/png" href="images/logo.png">
+    <link rel="shortcut icon" type="image/png" href="images/logo.png">
+    <link rel="apple-touch-icon" href="images/logo.png">
     <link rel="stylesheet" href="mubert-style.css">
     <link rel="stylesheet" href="styles.css">
     
@@ -99,7 +102,115 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: bold;
+            font-size: 12px;
+            margin-right: 10px;
+        }
+
+        /* 新增样式 */
+        .form-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .form-header h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .form-header p {
+            color: #666;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .checkbox-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 8px;
+            transition: background-color 0.2s;
+        }
+
+        .checkbox-item:hover {
+            background-color: #f8f9fa;
+        }
+
+        .checkbox-item input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: #667eea;
+        }
+
+        .checkbox-item span {
+            font-size: 0.9rem;
+            color: #555;
+        }
+
+        .guest-access {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .guest-button {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .guest-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(40, 167, 69, 0.3);
+        }
+
+        .guest-note {
+            font-size: 0.8rem;
+            color: #666;
+            margin: 0;
+        }
+
+        .social-button-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+        }
+
+        .social-button-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        .email-login {
+            margin-top: 20px;
+        }
+
+        .form-button-secondary {
+            background: linear-gradient(135deg, #6c757d 0%, #495057 100%);
+            margin-top: 15px;
+        }
+
+        .form-button-secondary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(108, 117, 125, 0.3);
         }
 
         .auth-right {
@@ -357,103 +468,117 @@
                 <div class="auth-right">
                     <!-- 标签切换 -->
                     <div class="auth-tabs">
-                        <div class="auth-tab active" onclick="switchTab('login')">登录</div>
-                        <div class="auth-tab" onclick="switchTab('register')">注册</div>
+                        <div class="auth-tab active" data-tab="subscribe">邮箱订阅</div>
+                        <div class="auth-tab" data-tab="social">快速登录</div>
                     </div>
     
-                    <!-- 登录表单 -->
-                    <form class="auth-form active" id="loginForm">
-                        <div class="form-group">
-                            <label class="form-label" for="loginEmail">邮箱地址</label>
-                            <input type="email" id="loginEmail" class="form-input" placeholder="请输入您的邮箱" required>
+                    <!-- 邮箱订阅表单 -->
+                    <form class="auth-form active" id="subscribeForm">
+                        <div class="form-header">
+                            <h3>获取最新音乐创作灵感</h3>
+                            <p>订阅我们的邮件，第一时间获得AI音乐生成技巧和最新功能</p>
                         </div>
                         
                         <div class="form-group">
-                            <label class="form-label" for="loginPassword">密码</label>
-                            <input type="password" id="loginPassword" class="form-input" placeholder="请输入您的密码" required>
+                            <label class="form-label" for="subscribeName">姓名</label>
+                            <input type="text" id="subscribeName" class="form-input" placeholder="请输入您的姓名" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="subscribeEmail">邮箱地址</label>
+                            <input type="email" id="subscribeEmail" class="form-input" placeholder="请输入您的邮箱" required>
                         </div>
     
-                        <div class="forgot-password">
-                            <a href="#" onclick="forgotPassword()">忘记密码？</a>
+                        <div class="form-group">
+                            <label class="form-label">感兴趣的内容</label>
+                            <div class="checkbox-group">
+                                <label class="checkbox-item">
+                                    <input type="checkbox" value="ai-music" checked>
+                                    <span>AI音乐生成技巧</span>
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" value="new-features" checked>
+                                    <span>新功能发布</span>
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" value="music-tips">
+                                    <span>音乐创作教程</span>
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" value="promotions">
+                                    <span>优惠活动</span>
+                                </label>
+                            </div>
                         </div>
     
-                        <button type="submit" class="form-button">登录</button>
+                        <button type="submit" class="form-button">立即订阅</button>
     
                         <div class="form-divider">
                             <span>或</span>
                         </div>
     
-                        <div class="social-buttons">
-                            <button type="button" class="social-button" onclick="socialLogin('google')">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                                    <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
-                                    <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
-                                    <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
-                                    <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
-                                </svg>
-                                Google
+                        <div class="guest-access">
+                            <button type="button" class="guest-button" id="guestAccessBtn">
+                                <i class="fas fa-play"></i>
+                                立即体验（无需注册）
                             </button>
-                            <button type="button" class="social-button" onclick="socialLogin('github')">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-                                </svg>
-                                GitHub
-                            </button>
+                            <p class="guest-note">免费试用AI音乐生成功能</p>
                         </div>
     
                         <div class="form-footer">
-                            还没有账号？ <a href="#" onclick="switchTab('register')">立即注册</a>
+                            想要更多功能？ <a href="#" id="switchToSocial">快速登录</a>
                         </div>
                     </form>
     
-                    <!-- 注册表单 -->
-                    <form class="auth-form" id="registerForm">
-                        <div class="form-group">
-                            <label class="form-label" for="registerName">姓名</label>
-                            <input type="text" id="registerName" class="form-input" placeholder="请输入您的姓名" required>
-                        </div>
-    
-                        <div class="form-group">
-                            <label class="form-label" for="registerEmail">邮箱地址</label>
-                            <input type="email" id="registerEmail" class="form-input" placeholder="请输入您的邮箱" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label class="form-label" for="registerPassword">密码</label>
-                            <input type="password" id="registerPassword" class="form-input" placeholder="请输入密码（至少8位）" required>
-                        </div>
-    
-                        <div class="form-group">
-                            <label class="form-label" for="registerConfirmPassword">确认密码</label>
-                            <input type="password" id="registerConfirmPassword" class="form-input" placeholder="请再次输入密码" required>
-                        </div>
-    
-                        <button type="submit" class="form-button">注册</button>
-    
-                        <div class="form-divider">
-                            <span>或</span>
+                    <!-- 社交媒体登录表单 -->
+                    <form class="auth-form" id="socialForm">
+                        <div class="form-header">
+                            <h3>快速登录</h3>
+                            <p>使用社交媒体账号，一键登录获得完整功能</p>
                         </div>
     
                         <div class="social-buttons">
-                            <button type="button" class="social-button" onclick="socialLogin('google')">
+                            <button type="button" class="social-button social-button-primary" data-provider="google">
                                 <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                                     <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
                                     <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
                                     <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
                                     <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
                                 </svg>
-                                Google
+                                使用Google账号登录
                             </button>
-                            <button type="button" class="social-button" onclick="socialLogin('github')">
+                            <button type="button" class="social-button" data-provider="github">
                                 <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                                     <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
                                 </svg>
-                                GitHub
+                                使用GitHub账号登录
+                            </button>
+                            <button type="button" class="social-button" data-provider="wechat">
+                                <i class="fab fa-weixin"></i>
+                                使用微信登录
+                            </button>
+                            <button type="button" class="social-button" data-provider="qq">
+                                <i class="fab fa-qq"></i>
+                                使用QQ登录
+                            </button>
+                        </div>
+    
+                        <div class="form-divider">
+                            <span>或</span>
+                        </div>
+    
+                        <div class="email-login">
+                            <div class="form-group">
+                                <label class="form-label" for="emailLogin">邮箱地址</label>
+                                <input type="email" id="emailLogin" class="form-input" placeholder="请输入您的邮箱">
+                            </div>
+                            <button type="button" class="form-button form-button-secondary" id="emailLoginBtn">
+                                邮箱登录
                             </button>
                         </div>
     
                         <div class="form-footer">
-                            已有账号？ <a href="#" onclick="switchTab('login')">立即登录</a>
+                            只想订阅邮件？ <a href="#" id="switchToSubscribe">邮箱订阅</a>
                         </div>
                     </form>
                 </div>
@@ -468,8 +593,9 @@
     
     <!-- JavaScript -->
     <script src="js/common.js"></script>
+    <script src="js/subscription-api.js"></script>
     <script>
-        // 切换登录/注册标签
+        // 切换邮箱订阅/快速登录标签
         function switchTab(tab) {
             const tabs = document.querySelectorAll('.auth-tab');
             const forms = document.querySelectorAll('.auth-form');
@@ -477,7 +603,7 @@
             tabs.forEach(t => t.classList.remove('active'));
             forms.forEach(f => f.classList.remove('active'));
             
-            if (tab === 'login') {
+            if (tab === 'subscribe') {
                 tabs[0].classList.add('active');
                 forms[0].classList.add('active');
             } else {
@@ -486,62 +612,171 @@
             }
         }
 
-        // 社交登录
-        function socialLogin(provider) {
-            console.log(`使用 ${provider} 登录`);
-            // 这里可以添加实际的社交登录逻辑
-            alert(`正在使用 ${provider} 登录...`);
-        }
 
-        // 忘记密码
-        function forgotPassword() {
-            alert('忘记密码功能正在开发中...');
-        }
 
-        // 表单提交处理
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const email = document.getElementById('loginEmail').value;
-            const password = document.getElementById('loginPassword').value;
-            
-            console.log('登录信息:', { email, password });
-            alert('登录功能正在开发中...');
-        });
 
-        document.getElementById('registerForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const name = document.getElementById('registerName').value;
-            const email = document.getElementById('registerEmail').value;
-            const password = document.getElementById('registerPassword').value;
-            const confirmPassword = document.getElementById('registerConfirmPassword').value;
-            
-            if (password !== confirmPassword) {
-                alert('两次输入的密码不一致！');
-                return;
-            }
-            
-            console.log('注册信息:', { name, email, password });
-            alert('注册功能正在开发中...');
-        });
+
+
+
+
+
+
 
         function handleUrlParams() {
             const urlParams = new URLSearchParams(window.location.search);
             const tab = urlParams.get('tab');
             console.log(tab,'tab')
             
-            if (tab === 'register') {
+            if (tab === 'social') {
                 // 延迟一点执行，确保DOM已加载
                 setTimeout(() => {
-                    switchTab('register');
+                    switchTab('social');
                 }, 100);
-            }else{
+            } else {
                 setTimeout(() => {
-                    switchTab('login')
+                    switchTab('subscribe')
                 }, 100); 
             }
         }
         document.addEventListener('DOMContentLoaded', function() {
             handleUrlParams();
+            
+            // 确保所有元素都存在后再绑定事件
+            if (document.getElementById('emailLoginBtn')) {
+                // 邮箱登录处理
+                document.getElementById('emailLoginBtn').addEventListener('click', function() {
+                    const email = document.getElementById('emailLogin').value;
+                    if (!email) {
+                        alert('请输入邮箱地址');
+                        return;
+                    }
+                    
+                    alert('邮箱登录功能正在开发中，请使用社交媒体登录');
+                });
+            }
+
+            if (document.getElementById('guestAccessBtn')) {
+                // 游客访问处理
+                document.getElementById('guestAccessBtn').addEventListener('click', function() {
+                    // 设置游客模式标识
+                    localStorage.setItem('guest_mode', 'true');
+                    localStorage.setItem('guest_access_time', new Date().toISOString());
+                    
+                    alert('欢迎体验Melon AI音乐生成器！\n\n注意：游客模式功能有限，建议注册获得完整功能。');
+                    window.location.href = 'music.html'; // 跳转到音乐生成页面
+                });
+            }
+
+            // 社交登录处理
+            document.querySelectorAll('.social-button[data-provider]').forEach(button => {
+                button.addEventListener('click', function() {
+                    const provider = this.getAttribute('data-provider');
+                    console.log(`使用 ${provider} 登录`);
+                    
+                    // 模拟社交登录流程
+                    const loadingText = {
+                        'google': '正在使用Google账号登录...',
+                        'github': '正在使用GitHub账号登录...',
+                        'wechat': '正在使用微信登录...',
+                        'qq': '正在使用QQ登录...'
+                    };
+                    
+                    alert(loadingText[provider] || '正在登录...');
+                    
+                    // 模拟登录成功
+                    setTimeout(() => {
+                        // 存储登录状态
+                        localStorage.setItem('user_logged_in', 'true');
+                        localStorage.setItem('login_provider', provider);
+                        localStorage.setItem('login_time', new Date().toISOString());
+                        
+                        alert('登录成功！欢迎使用Melon AI音乐生成器');
+                        window.location.href = 'music.html'; // 跳转到音乐生成页面
+                    }, 2000);
+                });
+            });
+
+            // 标签切换事件监听器
+            document.querySelectorAll('.auth-tab').forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const tabName = this.getAttribute('data-tab');
+                    switchTab(tabName);
+                });
+            });
+
+            // 链接切换事件监听器
+            if (document.getElementById('switchToSocial')) {
+                document.getElementById('switchToSocial').addEventListener('click', function(e) {
+                    e.preventDefault();
+                    switchTab('social');
+                });
+            }
+
+            if (document.getElementById('switchToSubscribe')) {
+                document.getElementById('switchToSubscribe').addEventListener('click', function(e) {
+                    e.preventDefault();
+                    switchTab('subscribe');
+                });
+            }
+
+            // 邮箱订阅处理
+            if (document.getElementById('subscribeForm')) {
+                document.getElementById('subscribeForm').addEventListener('submit', async function(e) {
+                    e.preventDefault();
+                    
+                    const name = document.getElementById('subscribeName').value;
+                    const email = document.getElementById('subscribeEmail').value;
+                    
+                    // 获取选中的兴趣内容
+                    const interests = [];
+                    document.querySelectorAll('.checkbox-group input:checked').forEach(checkbox => {
+                        interests.push(checkbox.value);
+                    });
+                    
+                    if (!name || !email) {
+                        alert('请填写姓名和邮箱地址');
+                        return;
+                    }
+                    
+                    if (interests.length === 0) {
+                        alert('请至少选择一个感兴趣的内容');
+                        return;
+                    }
+                    
+                    try {
+                        // 调用订阅API
+                        const response = await window.SubscriptionAPI.handleSubscription({
+                            name: name,
+                            email: email,
+                            interests: interests
+                        });
+                        
+                        if (response.code === 200) {
+                            alert('订阅成功！\n\n感谢您的订阅，我们将定期为您发送AI音乐生成的最新资讯和技巧。');
+                            
+                            // 清空表单
+                            document.getElementById('subscribeForm').reset();
+                            
+                            // 存储订阅信息到localStorage
+                            localStorage.setItem('email_subscription', JSON.stringify({
+                                name: name,
+                                email: email,
+                                interests: interests,
+                                subscribe_time: response.data.subscribed_at
+                            }));
+                            
+                        } else if (response.code === 409) {
+                            alert('该邮箱已订阅，感谢您的关注！');
+                        } else {
+                            alert(`订阅失败: ${response.message}`);
+                        }
+                        
+                    } catch (error) {
+                        console.error('订阅处理失败:', error);
+                        alert('订阅失败，请稍后重试');
+                    }
+                });
+            }
         });
     </script>
 </body>

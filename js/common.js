@@ -309,5 +309,5 @@ function addNewNotification(title, message, type = 'info') {
 
 // 示例：5秒后添加一条新消息
 setTimeout(() => {
-    addNewNotification('欢迎使用Melon', '感谢您选择Melon AI音乐生成器！', 'info');
+    addNewNotification('Thank you for choosing Melon AI Music Generator', 'info');
 }, 5000);

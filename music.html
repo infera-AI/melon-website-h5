@@ -1,35 +1,34 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <title>Melon Render - AI音乐生成器 | 立即生成音乐</title>
-    <meta name="description" content="使用Melon Render AI音乐生成器，输入歌词选择风格，立即生成专属音乐">
-    <link rel="icon" href="/favicon.ico">
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <title>Melon - AI Music Generator | Product Showcase</title>
+    <meta name="description" content="Melon AI Music Generator, intelligent music creation platform, providing professional music solutions for your projects">
+    <link rel="icon" type="image/png" href="images/logo.png">
+    <link rel="shortcut icon" type="image/png" href="images/logo.png">
+    <link rel="apple-touch-icon" href="images/logo.png">
     
-    <!-- 样式文件 -->
+    <!-- Style files -->
     <link rel="stylesheet" href="mubert-style.css">
     <link rel="stylesheet" href="styles.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     
     <style>
-        /* Render页面专用样式 */
-        .render-container {
+        /* Product showcase page styles */
+        .product-container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 100px 20px;
         }
 
-        .render-header {
+        .product-header {
             text-align: center;
-            margin-bottom: 50px;
+            margin-bottom: 60px;
         }
 
-        .render-header h1 {
-            font-size: 3rem;
+        .product-header h1 {
+            font-size: 3.5rem;
             font-weight: 700;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             -webkit-background-clip: text;
@@ -37,246 +36,277 @@
             margin-bottom: 20px;
         }
 
-        .render-header p {
-            font-size: 1.2rem;
+        .product-header p {
+            font-size: 1.3rem;
             color: #666;
-            max-width: 600px;
+            max-width: 700px;
             margin: 0 auto;
         }
 
-        .render-form {
-            background: white;
+        /* Features showcase area */
+        .features-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
             border-radius: 20px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-            padding: 40px;
+            padding: 50px;
             margin-bottom: 50px;
         }
 
-        .form-section {
-            margin-bottom: 30px;
-        }
-
-        .form-section h3 {
-            font-size: 1.5rem;
+        .features-section h2 {
+            font-size: 2.5rem;
             font-weight: 600;
-            color: #333;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .form-section h3 i {
-            color: #667eea;
-        }
-
-        /* 歌词输入框 */
-        .lyrics-input {
-            width: 100%;
-            min-height: 120px;
-            padding: 20px;
-            border: 2px solid #e9ecef;
-            border-radius: 12px;
-            font-size: 16px;
-            font-family: inherit;
-            resize: vertical;
-            transition: all 0.3s ease;
-            background: #f8f9fa;
-        }
-
-        .lyrics-input:focus {
-            outline: none;
-            border-color: #667eea;
-            background: white;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-        }
-
-        .lyrics-input::placeholder {
-            color: #999;
-            font-style: italic;
-        }
-
-        /* 风格选择 */
-        .style-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .style-option {
-            position: relative;
-            cursor: pointer;
-        }
-
-        .style-option input[type="checkbox"] {
-            position: absolute;
-            opacity: 0;
-            cursor: pointer;
-        }
-
-        .style-label {
-            display: flex;
-            align-items: center;
-            padding: 15px 20px;
-            border: 2px solid #e9ecef;
-            border-radius: 12px;
-            background: white;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .style-option input[type="checkbox"]:checked + .style-label {
-            border-color: #667eea;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
-        }
-
-        .style-label i {
-            margin-right: 10px;
-            font-size: 18px;
-        }
-
-        /* 生成按钮 */
-        .generate-section {
+            margin-bottom: 30px;
             text-align: center;
-            margin-top: 40px;
         }
 
-        .generate-btn {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            padding: 15px 40px;
-            font-size: 18px;
-            font-weight: 600;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
-        }
-
-        .generate-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 35px rgba(102, 126, 234, 0.4);
-        }
-
-        .generate-btn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        .generate-btn i {
-            margin-right: 10px;
-        }
-
-        /* 音乐展示列表 */
-        .music-list {
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-            padding: 40px;
-        }
-
-        .music-list-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
-        }
-
-        .music-list-header h2 {
-            font-size: 2rem;
-            font-weight: 600;
-            color: #333;
-        }
-
-        .filter-buttons {
-            display: flex;
-            gap: 10px;
-        }
-
-        .filter-btn {
-            padding: 8px 16px;
-            border: 1px solid #e9ecef;
-            background: white;
-            border-radius: 20px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 14px;
-        }
-
-        .filter-btn.active {
-            background: #667eea;
-            color: white;
-            border-color: #667eea;
-        }
-
-        .music-grid {
+        .features-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 25px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
         }
 
-        .music-card {
-            background: #f8f9fa;
+        .feature-card {
+            background: rgba(255, 255, 255, 0.1);
             border-radius: 15px;
-            padding: 25px;
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
+            padding: 30px;
+            text-align: center;
+            backdrop-filter: blur(10px);
         }
 
-        .music-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
-            border-color: #667eea;
-        }
-
-        .music-info {
+        .feature-icon {
+            font-size: 3rem;
             margin-bottom: 20px;
         }
 
-        .music-title {
-            font-size: 1.2rem;
+        .feature-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .feature-desc {
+            font-size: 1rem;
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+
+        /* Demo area */
+        .demo-section {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            padding: 50px;
+            margin-bottom: 50px;
+        }
+
+        .demo-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .demo-header h2 {
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .demo-header p {
+            font-size: 1.1rem;
+            color: #666;
+        }
+
+        .demo-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .demo-form {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
             font-weight: 600;
             color: #333;
             margin-bottom: 8px;
         }
 
-        .music-style {
-            display: inline-block;
+        .form-input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        /* Special styles for select elements */
+        .form-input[type="select"],
+        select.form-input {
+            /* Add right padding to make room for dropdown icon */
+            padding-right: 40px;
+            /* Remove default dropdown arrow */
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            /* Add custom dropdown arrow */
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+            background-position: right 12px center;
+            background-repeat: no-repeat;
+            background-size: 16px 16px;
+        }
+
+        /* Focus styles for select elements */
+        select.form-input:focus {
+            outline: none;
+            border-color: #667eea;
+            /* Change dropdown arrow color on focus */
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23667eea' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+        }
+
+        /* Compatibility - for browsers that don't support appearance */
+        select.form-input::-ms-expand {
+            display: none;
+        }
+
+        .demo-button {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            padding: 4px 12px;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .demo-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        .demo-preview {
+            text-align: center;
+        }
+
+        .demo-preview img {
+            max-width: 100%;
             border-radius: 15px;
-            font-size: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Sample music showcase */
+        .examples-section {
+            margin-bottom: 50px;
+        }
+
+        .examples-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .examples-header h2 {
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .examples-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .example-card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .example-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .example-image {
+            height: 200px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+        }
+
+        .example-content {
+            padding: 25px;
+        }
+
+        .example-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #333;
             margin-bottom: 10px;
         }
 
-        .music-lyrics {
-            font-size: 14px;
+        .example-desc {
             color: #666;
+            margin-bottom: 20px;
             line-height: 1.5;
-            margin-bottom: 15px;
-            display: -webkit-box;
-            -webkit-line-clamp: 3;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
         }
 
-        .music-controls {
+        .example-button {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .example-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(40, 167, 69, 0.3);
+        }
+
+        /* Audio player styles */
+        .audio-player {
+            margin-top: 15px;
+        }
+
+        .player-controls {
             display: flex;
             align-items: center;
-            gap: 15px;
-            margin-bottom: 15px;
+            gap: 12px;
+            background: #f8f9fa;
+            padding: 12px;
+            border-radius: 8px;
         }
 
         .play-btn {
-            width: 50px;
-            height: 50px;
+            width: 36px;
+            height: 36px;
             border-radius: 50%;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             border: none;
@@ -286,578 +316,444 @@
             align-items: center;
             justify-content: center;
             transition: all 0.3s ease;
+            flex-shrink: 0;
         }
 
         .play-btn:hover {
             transform: scale(1.1);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+
+        .play-btn.playing {
+            background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+        }
+
+        .progress-container {
+            flex: 1;
+            min-width: 0;
         }
 
         .progress-bar {
-            flex: 1;
-            height: 6px;
+            width: 100%;
+            height: 4px;
             background: #e9ecef;
-            border-radius: 3px;
+            border-radius: 2px;
             overflow: hidden;
+            margin-bottom: 6px;
+            cursor: pointer;
         }
 
         .progress-fill {
             height: 100%;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             width: 0%;
-            transition: width 0.3s ease;
+            transition: width 0.1s ease;
         }
 
         .time-display {
-            font-size: 12px;
-            color: #666;
-            min-width: 60px;
-        }
-
-        .music-actions {
             display: flex;
-            gap: 10px;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: #6c757d;
         }
 
-        .action-btn {
-            flex: 1;
-            padding: 8px 16px;
-            border: 1px solid #e9ecef;
-            background: white;
-            border-radius: 8px;
+        .current-time, .total-time {
+            font-family: monospace;
+        }
+
+        /* Contact area */
+        .contact-section {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 20px;
+            padding: 50px;
+            text-align: center;
+        }
+
+        .contact-section h2 {
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .contact-section p {
+            font-size: 1.1rem;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .contact-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
-            font-size: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 5px;
+            text-decoration: none;
+            display: inline-block;
         }
 
-        .action-btn:hover {
-            background: #667eea;
-            color: white;
-            border-color: #667eea;
+        .contact-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
         }
 
-        .action-btn.download {
-            background: #28a745;
-            color: white;
-            border-color: #28a745;
-        }
-
-        .action-btn.download:hover {
-            background: #218838;
-        }
-
-        /* 加载动画 */
-        .loading {
-            display: none;
-            text-align: center;
-            padding: 40px;
-        }
-
-        .loading.show {
-            display: block;
-        }
-
-        .spinner {
-            width: 50px;
-            height: 50px;
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid #667eea;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 20px;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        /* 响应式设计 */
+        /* Responsive design */
         @media (max-width: 768px) {
-            .render-container {
-                padding: 80px 15px;
+            .product-container {
+                padding: 60px 15px;
             }
 
-            .render-header h1 {
-                font-size: 2rem;
+            .product-header h1 {
+                font-size: 2.5rem;
             }
 
-            .render-form {
-                padding: 25px;
+            .demo-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
             }
 
-            .style-grid {
-                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            }
-
-            .music-grid {
+            .features-grid {
                 grid-template-columns: 1fr;
             }
 
-            .music-list-header {
+            .examples-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .player-controls {
                 flex-direction: column;
-                gap: 15px;
-                align-items: flex-start;
+                gap: 8px;
+            }
+            
+            .progress-container {
+                width: 100%;
+            }
+            
+            .time-display {
+                font-size: 0.7rem;
             }
         }
     </style>
 </head>
 <body>
-    <!-- 导航栏 -->
+    <!-- Navigation -->
     <div id="header-placeholder">
-        <!-- Header将通过JavaScript动态加载 -->
+        <!-- Header will be loaded dynamically via JavaScript -->
     </div>
 
-    <!-- 主要内容 -->
-    <main class="render-container">
-        <!-- 页面标题 -->
-        <div class="render-header">
-            <h1>立即生成音乐</h1>
-            <p>输入您的歌词，选择音乐风格，让AI为您创作专属音乐</p>
+    <main>
+        <div class="product-container">
+            <!-- Product header -->
+            <div class="product-header">
+                <h1>🍉 Melon AI Music Generator</h1>
+                <p>Intelligent music creation platform, providing professional music solutions for your projects</p>
         </div>
 
-        <!-- 生成表单 -->
-        <div class="render-form">
-            <form id="musicForm">
-                <!-- 歌词输入 -->
-                <div class="form-section">
-                    <h3><i class="fas fa-pen"></i>输入歌词</h3>
-                    <textarea 
-                        class="lyrics-input" 
-                        id="lyricsInput" 
-                        placeholder="在这里输入您的歌词...&#10;&#10;例如：&#10;夏日的微风轻轻吹过&#10;带来了花香和温暖&#10;让我们一起感受这美好的时光"
-                        required
-                    ></textarea>
+            <!-- Features showcase -->
+            <div class="features-section">
+                <h2>Core Features</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">🎵</div>
+                        <div class="feature-title">Intelligent Music Creation</div>
+                        <div class="feature-desc">Based on AI technology, automatically generate unique melodies and arrangements according to your needs</div>
                 </div>
-
-                <!-- 风格选择 -->
-                <div class="form-section">
-                    <h3><i class="fas fa-music"></i>选择音乐风格</h3>
-                    <div class="style-grid">
-                        <div class="style-option">
-                            <input type="checkbox" id="pop" name="styles" value="pop">
-                            <label for="pop" class="style-label">
-                                <i class="fas fa-star"></i>
-                                流行音乐
-                            </label>
+                    <div class="feature-card">
+                        <div class="feature-icon">🎼</div>
+                        <div class="feature-title">Multiple Music Styles</div>
+                        <div class="feature-desc">Support pop, classical, electronic, jazz and many other music styles</div>
                         </div>
-                        <div class="style-option">
-                            <input type="checkbox" id="rock" name="styles" value="rock">
-                            <label for="rock" class="style-label">
-                                <i class="fas fa-guitar"></i>
-                                摇滚
-                            </label>
+                    <div class="feature-card">
+                        <div class="feature-icon">🎧</div>
+                        <div class="feature-title">Professional Audio Output</div>
+                        <div class="feature-desc">High-quality audio output, supporting multiple formats and sample rates</div>
                         </div>
-                        <div class="style-option">
-                            <input type="checkbox" id="jazz" name="styles" value="jazz">
-                            <label for="jazz" class="style-label">
-                                <i class="fas fa-saxophone"></i>
-                                爵士
-                            </label>
+                    <div class="feature-card">
+                        <div class="feature-icon">⚡</div>
+                        <div class="feature-title">Fast Generation</div>
+                        <div class="feature-desc">Generate complete music works in just a few seconds</div>
                         </div>
-                        <div class="style-option">
-                            <input type="checkbox" id="classical" name="styles" value="classical">
-                            <label for="classical" class="style-label">
-                                <i class="fas fa-violin"></i>
-                                古典
-                            </label>
+                    <div class="feature-card">
+                        <div class="feature-icon">🎯</div>
+                        <div class="feature-title">Personalized Customization</div>
+                        <div class="feature-desc">Customize music according to lyrics, mood, duration and other requirements</div>
                         </div>
-                        <div class="style-option">
-                            <input type="checkbox" id="electronic" name="styles" value="electronic">
-                            <label for="electronic" class="style-label">
-                                <i class="fas fa-synth"></i>
-                                电子
-                            </label>
-                        </div>
-                        <div class="style-option">
-                            <input type="checkbox" id="folk" name="styles" value="folk">
-                            <label for="folk" class="style-label">
-                                <i class="fas fa-banjo"></i>
-                                民谣
-                            </label>
-                        </div>
-                        <div class="style-option">
-                            <input type="checkbox" id="hiphop" name="styles" value="hiphop">
-                            <label for="hiphop" class="style-label">
-                                <i class="fas fa-microphone"></i>
-                                嘻哈
-                            </label>
-                        </div>
-                        <div class="style-option">
-                            <input type="checkbox" id="ambient" name="styles" value="ambient">
-                            <label for="ambient" class="style-label">
-                                <i class="fas fa-cloud"></i>
-                                氛围
-                            </label>
+                    <div class="feature-card">
+                        <div class="feature-icon">💼</div>
+                        <div class="feature-title">Commercial License</div>
+                        <div class="feature-desc">Generated music can be used in commercial projects without copyright issues</div>
                         </div>
                     </div>
                 </div>
 
-                <!-- 生成按钮 -->
-                <div class="generate-section">
-                    <button type="submit" class="generate-btn" id="generateBtn">
-                        <i class="fas fa-magic"></i>
-                        生成音乐
-                    </button>
+            <!-- Demo area -->
+            <div class="demo-section">
+                <div class="demo-header">
+                    <h2>Product Demo</h2>
+                    <p>Experience the powerful features of AI music generation</p>
                 </div>
-            </form>
-
-            <!-- 加载动画 -->
-            <div class="loading" id="loading">
-                <div class="spinner"></div>
-                <p>AI正在为您创作音乐，请稍候...</p>
+                <div class="demo-content">
+                    <div class="demo-form">
+                        <div class="form-group">
+                            <label class="form-label">Music Style</label>
+                            <select class="form-input">
+                                <option>Pop Music</option>
+                                <option>Classical Music</option>
+                                <option>Electronic Music</option>
+                                <option>Jazz Music</option>
+                                <option>Rock Music</option>
+                            </select>
             </div>
+                        <div class="form-group">
+                            <label class="form-label">Music Duration</label>
+                            <select class="form-input">
+                                <option>30 seconds</option>
+                                <option>1 minute</option>
+                                <option>2 minutes</option>
+                                <option>3 minutes</option>
+                            </select>
         </div>
+                        <div class="form-group">
+                            <label class="form-label">Mood Atmosphere</label>
+                            <select class="form-input">
+                                <option>Happy</option>
+                                <option>Sad</option>
+                                <option>Passionate</option>
+                                <option>Calm</option>
+                                <option>Mysterious</option>
+                            </select>                </div>
+                        <button class="demo-button" onclick="showDemo()">
+                            <i class="fas fa-play"></i>
+                            View Demo
+                        </button>
+                        </div>
+                    <div class="demo-preview">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23667eea'/%3E%3Ctext x='200' y='150' text-anchor='middle' fill='white' font-size='24' font-family='Arial'%3EMelon AI Music Generator%3C/text%3E%3Ctext x='200' y='180' text-anchor='middle' fill='white' font-size='16' font-family='Arial'%3EProduct Demo Interface%3C/text%3E%3C/svg%3E" alt="Product Demo">
+                    </div>
+                    </div>
+                </div>
 
-        <!-- 音乐展示列表 -->
-        <div class="music-list">
-            <div class="music-list-header">
-                <h2>我的音乐作品</h2>
-                <div class="filter-buttons">
-                    <button class="filter-btn active" data-filter="all">全部</button>
-                    <button class="filter-btn" data-filter="recent">最近</button>
-                    <button class="filter-btn" data-filter="popular">热门</button>
+            <!-- Sample music -->
+            <div class="examples-section">
+                <div class="examples-header">
+                    <h2>Sample Works</h2>
+                    </div>
+                <div class="examples-grid">
+                    <div class="example-card">
+                        <div class="example-image">🎵</div>
+                        <div class="example-content">
+                            <div class="example-title">Summer Breeze</div>
+                            <div class="example-desc">Light pop music, suitable for advertisements and short video backgrounds</div>
+                            <div class="audio-player">
+                                <audio id="audio-summer" src="MP3/xiariweifeng.mp3" preload="metadata"></audio>
+                                <div class="player-controls">
+                                    <button class="play-btn" onclick="togglePlay('audio-summer', this)">
+                            <i class="fas fa-play"></i>
+                        </button>
+                                    <div class="progress-container">
+                        <div class="progress-bar">
+                                            <div class="progress-fill" id="progress-summer"></div>
+                                        </div>
+                                        <div class="time-display">
+                                            <span class="current-time" id="current-summer">0:00</span>
+                                            <span class="total-time" id="total-summer">0:00</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="example-card">
+                        <div class="example-image">🎼</div>
+                        <div class="example-content">
+                            <div class="example-title">City Nightscape</div>
+                            <div class="example-desc">Electronic music style, suitable for tech product showcases</div>
+                            <div class="audio-player">
+                                <audio id="audio-city" src="MP3/chengshideye.mp3" preload="metadata"></audio>
+                                <div class="player-controls">
+                                    <button class="play-btn" onclick="togglePlay('audio-city', this)">
+                                        <i class="fas fa-play"></i>
+                        </button>
+                                    <div class="progress-container">
+                                        <div class="progress-bar">
+                                            <div class="progress-fill" id="progress-city"></div>
+                                        </div>
+                                        <div class="time-display">
+                                            <span class="current-time" id="current-city">0:00</span>
+                                            <span class="total-time" id="total-city">0:00</span>
+                                        </div>
+                                    </div>
+                                </div>
+                    </div>
+                </div>
+                    </div>
+                    <div class="example-card">
+                        <div class="example-image">🎹</div>
+                        <div class="example-content">
+                            <div class="example-title">Classical Time</div>
+                            <div class="example-desc">Elegant classical music, suitable for high-end brand promotion</div>
+                            <div class="audio-player">
+                                <audio id="audio-classical" src="MP3/gudianshiguang.mp3" preload="metadata"></audio>
+                                <div class="player-controls">
+                                    <button class="play-btn" onclick="togglePlay('audio-classical', this)">
+                            <i class="fas fa-play"></i>
+                        </button>
+                                    <div class="progress-container">
+                        <div class="progress-bar">
+                                            <div class="progress-fill" id="progress-classical"></div>
+                                        </div>
+                                        <div class="time-display">
+                                            <span class="current-time" id="current-classical">0:00</span>
+                                            <span class="total-time" id="total-classical">0:00</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <div class="music-grid" id="musicGrid">
-                <!-- 示例音乐卡片 -->
-                <div class="music-card" data-style="pop" data-date="2024-01-15">
-                    <div class="music-info">
-                        <div class="music-title">夏日微风</div>
-                        <div class="music-style">流行音乐</div>
-                        <div class="music-lyrics">夏日的微风轻轻吹过，带来了花香和温暖，让我们一起感受这美好的时光...</div>
-                    </div>
-                    <div class="music-controls">
-                        <button class="play-btn" onclick="togglePlay(this)">
-                            <i class="fas fa-play"></i>
-                        </button>
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: 0%"></div>
-                        </div>
-                        <div class="time-display">0:00 / 3:45</div>
-                    </div>
-                    <div class="music-actions">
-                        <button class="action-btn" onclick="shareMusic(this)">
-                            <i class="fas fa-share"></i>
-                            分享
-                        </button>
-                        <button class="action-btn download" onclick="downloadMusic(this)">
-                            <i class="fas fa-download"></i>
-                            下载
-                        </button>
-                    </div>
-                </div>
-
-                <div class="music-card" data-style="jazz" data-date="2024-01-14">
-                    <div class="music-info">
-                        <div class="music-title">午夜爵士</div>
-                        <div class="music-style">爵士</div>
-                        <div class="music-lyrics">午夜的街道，灯光闪烁，爵士乐的旋律在空气中流淌...</div>
-                    </div>
-                    <div class="music-controls">
-                        <button class="play-btn" onclick="togglePlay(this)">
-                            <i class="fas fa-play"></i>
-                        </button>
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: 0%"></div>
-                        </div>
-                        <div class="time-display">0:00 / 4:20</div>
-                    </div>
-                    <div class="music-actions">
-                        <button class="action-btn" onclick="shareMusic(this)">
-                            <i class="fas fa-share"></i>
-                            分享
-                        </button>
-                        <button class="action-btn download" onclick="downloadMusic(this)">
-                            <i class="fas fa-download"></i>
-                            下载
-                        </button>
-                    </div>
-                </div>
-
-                <div class="music-card" data-style="electronic" data-date="2024-01-13">
-                    <div class="music-info">
-                        <div class="music-title">未来之声</div>
-                        <div class="music-style">电子</div>
-                        <div class="music-lyrics">在数字的世界里，我们寻找着未来的声音，科技与艺术的完美融合...</div>
-                    </div>
-                    <div class="music-controls">
-                        <button class="play-btn" onclick="togglePlay(this)">
-                            <i class="fas fa-play"></i>
-                        </button>
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: 0%"></div>
-                        </div>
-                        <div class="time-display">0:00 / 3:30</div>
-                    </div>
-                    <div class="music-actions">
-                        <button class="action-btn" onclick="shareMusic(this)">
-                            <i class="fas fa-share"></i>
-                            分享
-                        </button>
-                        <button class="action-btn download" onclick="downloadMusic(this)">
-                            <i class="fas fa-download"></i>
-                            下载
-                        </button>
-                    </div>
-                </div>
+            <!-- Contact us -->
+            <div class="contact-section">
+                <h2>Ready to start your music creation journey?</h2>
+                <p>Contact us to learn more about Melon AI Music Generator</p>
+                <a href="contact.html" class="contact-button">
+                    <i class="fas fa-envelope"></i>
+                    Contact Us
+                </a>
             </div>
         </div>
     </main>
 
-    <!-- 页脚 -->
+    <!-- Footer -->
     <div id="footer-placeholder">
-        <!-- Footer将通过JavaScript动态加载 -->
+        <!-- Footer will be loaded dynamically via JavaScript -->
     </div>
 
     <!-- JavaScript -->
     <script src="js/common.js"></script>
     <script>
-        // 音乐生成功能
+        // Audio player functionality
+        let currentPlayingAudio = null;
+        let currentPlayingBtn = null;
+
+        // Initialize audio player
         document.addEventListener('DOMContentLoaded', function() {
-            const form = document.getElementById('musicForm');
-            const generateBtn = document.getElementById('generateBtn');
-            const loading = document.getElementById('loading');
-            const musicGrid = document.getElementById('musicGrid');
-
-            // 表单提交处理
-            form.addEventListener('submit', function(e) {
-                e.preventDefault();
+            const audioElements = ['audio-summer', 'audio-city', 'audio-classical'];
+            
+            audioElements.forEach(audioId => {
+                const audio = document.getElementById(audioId);
+                const progressFill = document.getElementById('progress-' + audioId.split('-')[1]);
+                const currentTimeSpan = document.getElementById('current-' + audioId.split('-')[1]);
+                const totalTimeSpan = document.getElementById('total-' + audioId.split('-')[1]);
                 
-                const lyrics = document.getElementById('lyricsInput').value.trim();
-                const selectedStyles = Array.from(document.querySelectorAll('input[name="styles"]:checked'))
-                    .map(checkbox => checkbox.value);
-
-                if (!lyrics) {
-                    alert('请输入歌词');
-                    return;
-                }
-
-                if (selectedStyles.length === 0) {
-                    alert('请至少选择一个音乐风格');
-                    return;
-                }
-
-                // 显示加载动画
-                generateBtn.disabled = true;
-                loading.classList.add('show');
-
-                // 模拟AI生成过程
-                setTimeout(() => {
-                    // 隐藏加载动画
-                    loading.classList.remove('show');
-                    generateBtn.disabled = false;
-
-                    // 创建新音乐卡片
-                    const newMusic = createMusicCard(lyrics, selectedStyles[0]);
-                    musicGrid.insertBefore(newMusic, musicGrid.firstChild);
-
-                    // 清空表单
-                    form.reset();
-
-                    // 显示成功消息
-                    showNotification('音乐生成成功！', 'success');
-                }, 3000);
-            });
-
-            // 创建音乐卡片
-            function createMusicCard(lyrics, style) {
-                const card = document.createElement('div');
-                card.className = 'music-card';
-                card.setAttribute('data-style', style);
-                card.setAttribute('data-date', new Date().toISOString().split('T')[0]);
-
-                const styleNames = {
-                    'pop': '流行音乐',
-                    'rock': '摇滚',
-                    'jazz': '爵士',
-                    'classical': '古典',
-                    'electronic': '电子',
-                    'folk': '民谣',
-                    'hiphop': '嘻哈',
-                    'ambient': '氛围'
-                };
-
-                const titles = {
-                    'pop': '流行旋律',
-                    'rock': '摇滚力量',
-                    'jazz': '爵士时光',
-                    'classical': '古典优雅',
-                    'electronic': '电子未来',
-                    'folk': '民谣故事',
-                    'hiphop': '嘻哈节奏',
-                    'ambient': '氛围空间'
-                };
-
-                card.innerHTML = `
-                    <div class="music-info">
-                        <div class="music-title">${titles[style]}</div>
-                        <div class="music-style">${styleNames[style]}</div>
-                        <div class="music-lyrics">${lyrics.substring(0, 100)}${lyrics.length > 100 ? '...' : ''}</div>
-                    </div>
-                    <div class="music-controls">
-                        <button class="play-btn" onclick="togglePlay(this)">
-                            <i class="fas fa-play"></i>
-                        </button>
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: 0%"></div>
-                        </div>
-                        <div class="time-display">0:00 / 3:45</div>
-                    </div>
-                    <div class="music-actions">
-                        <button class="action-btn" onclick="shareMusic(this)">
-                            <i class="fas fa-share"></i>
-                            分享
-                        </button>
-                        <button class="action-btn download" onclick="downloadMusic(this)">
-                            <i class="fas fa-download"></i>
-                            下载
-                        </button>
-                    </div>
-                `;
-
-                return card;
-            }
-
-            // 过滤器功能
-            document.querySelectorAll('.filter-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    // 移除所有active类
-                    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-                    // 添加active类到当前按钮
-                    this.classList.add('active');
-
-                    const filter = this.getAttribute('data-filter');
-                    filterMusic(filter);
+                // Set total duration when audio is loaded
+                audio.addEventListener('loadedmetadata', function() {
+                    totalTimeSpan.textContent = formatTime(audio.duration);
                 });
-            });
-
-            function filterMusic(filter) {
-                const cards = document.querySelectorAll('.music-card');
                 
-                cards.forEach(card => {
-                    switch(filter) {
-                        case 'recent':
-                            // 显示最近7天的作品
-                            const cardDate = new Date(card.getAttribute('data-date'));
-                            const weekAgo = new Date();
-                            weekAgo.setDate(weekAgo.getDate() - 7);
-                            card.style.display = cardDate >= weekAgo ? 'block' : 'none';
-                            break;
-                        case 'popular':
-                            // 这里可以根据播放次数等数据来过滤
-                            card.style.display = 'block';
-                            break;
-                        default:
-                            card.style.display = 'block';
+                // Update playback progress
+                audio.addEventListener('timeupdate', function() {
+                    if (audio.duration) {
+                        const progress = (audio.currentTime / audio.duration) * 100;
+                        progressFill.style.width = progress + '%';
+                        currentTimeSpan.textContent = formatTime(audio.currentTime);
                     }
                 });
-            }
-
-            // 显示通知
-            function showNotification(message, type = 'info') {
-                const notification = document.createElement('div');
-                notification.style.cssText = `
-                    position: fixed;
-                    top: 20px;
-                    right: 20px;
-                    background: ${type === 'success' ? '#28a745' : '#007bff'};
-                    color: white;
-                    padding: 15px 25px;
-                    border-radius: 8px;
-                    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-                    z-index: 1000;
-                    animation: slideIn 0.3s ease;
-                `;
-                notification.textContent = message;
-                document.body.appendChild(notification);
-
-                setTimeout(() => {
-                    notification.remove();
-                }, 3000);
-            }
+                
+                // Audio playback ended
+                audio.addEventListener('ended', function() {
+                    const btn = document.querySelector(`[onclick*="${audioId}"]`);
+                    if (btn) {
+                        btn.innerHTML = '<i class="fas fa-play"></i>';
+                        btn.classList.remove('playing');
+                    }
+                    currentPlayingAudio = null;
+                    currentPlayingBtn = null;
+                });
+                
+                // Click progress bar to seek
+                const progressBar = progressFill.parentElement;
+                progressBar.addEventListener('click', function(e) {
+                    const rect = progressBar.getBoundingClientRect();
+                    const clickX = e.clientX - rect.left;
+                    const progressWidth = rect.width;
+                    const clickPercent = clickX / progressWidth;
+                    audio.currentTime = clickPercent * audio.duration;
+                });
+            });
         });
 
-        // 播放/暂停功能
-        function togglePlay(btn) {
-            const icon = btn.querySelector('i');
-            const progressFill = btn.parentElement.querySelector('.progress-fill');
+        // Play/pause toggle
+        function togglePlay(audioId, btn) {
+            const audio = document.getElementById(audioId);
             
-            if (icon.classList.contains('fa-play')) {
-                icon.classList.remove('fa-play');
-                icon.classList.add('fa-pause');
-                
-                // 模拟播放进度
-                let progress = 0;
-                const interval = setInterval(() => {
-                    progress += 1;
-                    progressFill.style.width = progress + '%';
-                    
-                    if (progress >= 100) {
-                        clearInterval(interval);
-                        icon.classList.remove('fa-pause');
-                        icon.classList.add('fa-play');
-                        progressFill.style.width = '0%';
+            // If another audio is playing, stop it first
+            if (currentPlayingAudio && currentPlayingAudio !== audio) {
+                currentPlayingAudio.pause();
+                if (currentPlayingBtn) {
+                    currentPlayingBtn.innerHTML = '<i class="fas fa-play"></i>';
+                    currentPlayingBtn.classList.remove('playing');
+                }
+            }
+            
+            if (audio.paused) {
+                audio.play().then(() => {
+                    btn.innerHTML = '<i class="fas fa-pause"></i>';
+                    btn.classList.add('playing');
+                    currentPlayingAudio = audio;
+                    currentPlayingBtn = btn;
+                }).catch(error => {
+                    console.log('Playback failed:', error);
+                    alert('Audio playback failed, please check if your browser supports audio playback');
+                });
+            } else {
+                audio.pause();
+                btn.innerHTML = '<i class="fas fa-play"></i>';
+                btn.classList.remove('playing');
+                currentPlayingAudio = null;
+                currentPlayingBtn = null;
+            }
+        }
+
+        // Format time
+        function formatTime(seconds) {
+            if (isNaN(seconds)) return '0:00';
+            const mins = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${mins}:${secs.toString().padStart(2, '0')}`;
+        }
+
+        // Show demo
+        function showDemo() {
+            alert('Product demo feature is under development, stay tuned!\n\nYou can check out our sample works to understand the product features.');
+        }
+
+        // Page load completion handling
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add page animation effects
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
                     }
-                }, 100);
-            } else {
-                icon.classList.remove('fa-pause');
-                icon.classList.add('fa-play');
-            }
-        }
-
-        // 分享功能
-        function shareMusic(btn) {
-            const card = btn.closest('.music-card');
-            const title = card.querySelector('.music-title').textContent;
-            
-            if (navigator.share) {
-                navigator.share({
-                    title: title,
-                    text: '听听我创作的AI音乐！',
-                    url: window.location.href
                 });
-            } else {
-                // 复制链接到剪贴板
-                navigator.clipboard.writeText(window.location.href).then(() => {
-                    alert('链接已复制到剪贴板！');
-                });
-            }
-        }
+            });
 
-        // 下载功能
-        function downloadMusic(btn) {
-            const card = btn.closest('.music-card');
-            const title = card.querySelector('.music-title').textContent;
-            
-            // 模拟下载
-            const link = document.createElement('a');
-            link.href = 'data:audio/mp3;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSuBzvLZiTYIG2m98OScTgwOUarm7blmGgU7k9n1unEiBC13yO/eizEIHWq+8+OWT';
-            link.download = `${title}.mp3`;
-            link.click();
-            
-            alert(`正在下载 ${title}.mp3`);
-        }
-
-        // 添加CSS动画
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes slideIn {
-                from {
-                    transform: translateX(100%);
-                    opacity: 0;
-                }
-                to {
-                    transform: translateX(0);
-                    opacity: 1;
-                }
-            }
-        `;
-        document.head.appendChild(style);
+            // Observe all card elements
+            document.querySelectorAll('.feature-card, .example-card').forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px)';
+                card.style.transition = 'all 0.6s ease';
+                observer.observe(card);
+            });
+        });
     </script>
 </body>
 </html>

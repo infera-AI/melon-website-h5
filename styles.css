@@ -211,7 +211,6 @@ nav {
 
 .social-icons a:hover {
     transform: scale(1.1) rotate(5deg);
-    background: linear-gradient(45deg, #667eea, #764ba2) !important;
 }
 
 /* 按钮增强 */
