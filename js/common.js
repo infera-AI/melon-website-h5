@@ -64,7 +64,7 @@ const languageData = {
         'notification-achievement-title': '获得新成就',
         'notification-achievement-message': '恭喜！您已获得"音乐创作者"徽章。',
         'notification-offer-title': '限时优惠',
-        'notification-offer-message': 'Melon Pro会员限时8折优惠，仅限今日！',
+        'notification-offer-message': 'Melons Pro会员限时8折优惠，仅限今日！',
         'notification-update-title': '系统更新',
         'notification-update-message': 'Melon已更新到最新版本，新增多种音乐风格。',
         'notification-time-2min': '2分钟前',
@@ -74,7 +74,7 @@ const languageData = {
         'view-all-notifications': '查看所有消息',
         
         // 页脚
-        'footer-address': 'Melon Inc<br>北京市朝阳区科技园区<br>中国 100000',
+        'footer-address': 'Melons Inc<br>北京市朝阳区科技园区<br>中国 100000',
         'footer-products': '产品',
         'footer-company': '公司',
         'footer-blog': '博客',
@@ -101,9 +101,9 @@ const languageData = {
         'notification-achievement-title': 'New Achievement',
         'notification-achievement-message': 'Congratulations! You earned the "Music Creator" badge.',
         'notification-offer-title': 'Limited Time Offer',
-        'notification-offer-message': 'Melon Pro membership 20% off, today only!',
+        'notification-offer-message': 'Melons Pro membership 20% off, today only!',
         'notification-update-title': 'System Update',
-        'notification-update-message': 'Melon has been updated with new music styles.',
+        'notification-update-message': 'Melons has been updated with new music styles.',
         'notification-time-2min': '2 minutes ago',
         'notification-time-1hour': '1 hour ago',
         'notification-time-3hour': '3 hours ago',
@@ -111,7 +111,7 @@ const languageData = {
         'view-all-notifications': 'View All Messages',
         
         // Footer
-        'footer-address': 'Melon Inc<br>Beijing Chaoyang Tech Park<br>China 100000',
+        'footer-address': 'Melons Inc<br>Beijing Chaoyang Tech Park<br>China 100000',
         'footer-products': 'Products',
         'footer-company': 'Company',
         'footer-blog': 'Blog',
@@ -309,5 +309,5 @@ function addNewNotification(title, message, type = 'info') {
 
 // 示例：5秒后添加一条新消息
 setTimeout(() => {
-    addNewNotification('Thank you for choosing Melon AI Music Generator', 'info');
+    addNewNotification('Thank you for choosing Melons AI Music Generator', 'info');
 }, 5000);
