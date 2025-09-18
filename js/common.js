@@ -22,6 +22,15 @@ function loadHeader() {
             const headerPlaceholder = document.getElementById('header-placeholder');
             if (headerPlaceholder) {
                 headerPlaceholder.innerHTML = html;
+
+                let headLogoTextDom = document.getElementById('header-logo-text-id')
+                if (window.location.hostname === 'www.melonai.com.cn') {
+                    headLogoTextDom.innerHTML = 'Melons'
+                } else {
+                    headLogoTextDom.innerHTML = 'Sinobiz'
+                }
+                
+                
             }
         })
         .catch(error => {
@@ -37,6 +46,26 @@ function loadFooter() {
             const footerPlaceholder = document.getElementById('footer-placeholder');
             if (footerPlaceholder) {
                 footerPlaceholder.innerHTML = html;
+
+                let companyTextDom = document.getElementById('footer-company-name-text')
+                let companyTextDom2 = document.getElementById('footer-company-name-text2')
+                let addressTextDom = document.getElementById('footer-company-address-text')
+                let descTextDom = document.getElementById('footer-desc-text')
+                if (window.location.hostname === 'www.melonai.com.cn') {
+                    companyTextDom.innerHTML = 'Lingge llc'
+
+                    addressTextDom.innerHTML = `Room 23B, Jian'an Shanhai Center, No. 8000 Shennan Boulevard, Xiangling Community, Xiangmihu Sub-district, Futian District, Shenzhen City `
+                    companyTextDom2.innerHTML = 'melonai.com.cn'
+
+                    descTextDom.innerHTML = `© 2024 – 2025, Lingge llc. All music played on *.melonai.com.cn domains is generated (created, composed, recorded) by artificial intelligence (algorithms, software, programs) owned by Lingge llc, and is licensed for personal use only by Melons® Inc. All rights reserved. Public copying, recording, or distribution of this music is prohibited.`
+                } else {
+                    companyTextDom.innerHTML = 'sinobiz llc'
+
+                    addressTextDom.innerHTML = '30 N Gould St Ste R Sheridan, WY 82801 '
+                    companyTextDom2.innerHTML = 'sinobiz.biz'
+
+                    descTextDom.innerHTML = `© 2024 – 2025, sinobiz llc. All music played on *.sinobiz.biz domains is generated (created, composed, recorded) by artificial intelligence (algorithms, software, programs) owned by sinobiz llc, and is licensed for personal use only by Melons® Inc. All rights reserved. Public copying, recording, or distribution of this music is prohibited.`
+                }
             }
         })
         .catch(error => {

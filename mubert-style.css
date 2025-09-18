@@ -450,6 +450,10 @@ body {
     margin-bottom: 40px;
 }
 
+.logo-block__logo {
+    max-width: 380px;
+}
+
 .logo-block__logo-wrapper svg {
     height: 30px;
     margin-bottom: 20px;
