@@ -14,6 +14,8 @@ document.addEventListener('DOMContentLoaded', function() {
     initProductDropdown();
 });
 
+const melonsHost = 'sinobiz.biz'
+
 // 加载Header
 function loadHeader() {
     fetch('components/header.html')
@@ -24,7 +26,7 @@ function loadHeader() {
                 headerPlaceholder.innerHTML = html;
 
                 let headLogoTextDom = document.getElementById('header-logo-text-id')
-                if (window.location.hostname === 'www.melonai.com.cn') {
+                if (window.location.hostname.indexOf(melonsHost) === -1) {
                     headLogoTextDom.innerHTML = 'Melons'
                 } else {
                     headLogoTextDom.innerHTML = 'Sinobiz'
@@ -51,13 +53,30 @@ function loadFooter() {
                 let companyTextDom2 = document.getElementById('footer-company-name-text2')
                 let addressTextDom = document.getElementById('footer-company-address-text')
                 let descTextDom = document.getElementById('footer-desc-text')
-                if (window.location.hostname === 'www.melonai.com.cn') {
-                    companyTextDom.innerHTML = 'Lingge llc'
-
+                let beianDom = document.getElementById('chinaBeian')
+                if (window.location.hostname.indexOf(melonsHost) === -1) {
+                    companyTextDom.style = 'display: none;'
                     addressTextDom.innerHTML = `Room 23B, Jian'an Shanhai Center, No. 8000 Shennan Boulevard, Xiangling Community, Xiangmihu Sub-district, Futian District, Shenzhen City `
                     companyTextDom2.innerHTML = 'melonai.com.cn'
 
-                    descTextDom.innerHTML = `© 2024 – 2025, Lingge llc. All music played on *.melonai.com.cn domains is generated (created, composed, recorded) by artificial intelligence (algorithms, software, programs) owned by Lingge llc, and is licensed for personal use only by Melons® Inc. All rights reserved. Public copying, recording, or distribution of this music is prohibited.`
+                    descTextDom.innerHTML = `Copyright © 2025 www.melonai.com.cn All Rights Reserved 深圳羚歌智能科技有限公司版权所有`
+                    beianDom.innerHTML = `
+                        <a
+                            href="https://beian.miit.gov.cn/"
+                            class="beianADom"
+                            target="_blank"
+                        >
+                            <img
+                                src="images/beianIcon.png"
+                                alt="Melons" 
+                                style="width: 20px; height: 20px; margin-right: 10px;"
+                            />
+                            <span>
+                                粤ICP备2025476589号-1
+                            </span>
+                        </a>
+                        
+                    `
                 } else {
                     companyTextDom.innerHTML = 'sinobiz llc'
 
@@ -65,6 +84,7 @@ function loadFooter() {
                     companyTextDom2.innerHTML = 'sinobiz.biz'
 
                     descTextDom.innerHTML = `© 2024 – 2025, sinobiz llc. All music played on *.sinobiz.biz domains is generated (created, composed, recorded) by artificial intelligence (algorithms, software, programs) owned by sinobiz llc, and is licensed for personal use only by Melons® Inc. All rights reserved. Public copying, recording, or distribution of this music is prohibited.`
+                    beianDom.style = 'display: none;'
                 }
             }
         })
