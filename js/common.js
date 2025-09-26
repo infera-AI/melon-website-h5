@@ -29,7 +29,7 @@ function loadHeader() {
                 if (window.location.hostname.indexOf(melonsHost) === -1) {
                     headLogoTextDom.innerHTML = 'Melons'
                 } else {
-                    headLogoTextDom.innerHTML = 'Sinobiz AI'
+                    headLogoTextDom.innerHTML = 'Sinobiz'
                 }
                 
                 
