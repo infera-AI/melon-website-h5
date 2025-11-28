@@ -167,7 +167,7 @@ const languageData = {
         'footer-privacy': '隐私政策',
         'footer-terms': '使用条款',
         'footer-dmca': 'DMCA政策',
-        'will-have': '即将上线33'
+        'will-have': '即将上线'
     },
     en: {
         // Navigation
@@ -205,7 +205,7 @@ const languageData = {
         'footer-privacy': 'Privacy Policy',
         'footer-terms': 'Terms of Use',
         'footer-dmca': 'DMCA Policy',
-        'will-have': '即将上线1111'
+        'will-have': 'Coming soon'
     }
 };
 
