@@ -1219,3 +1219,72 @@ body {
 .beianADom:hover {
     color: #000;
 }
+
+.downloadAppDiv {
+    flex-direction: column;
+    align-items: center;
+    display: none;
+}
+
+.melon-logo {
+    width: 160px;
+    height: 160px;
+    object-fit: contain;
+    border-radius: 40px;
+    margin-top: 100px;
+}
+.melon-logo-text {
+    font-size: 38px;
+    background-image: linear-gradient(135deg, #879bf2 0%, #673a94 100%); /* 1. 创建从左到右的橙红色渐变背景 */
+    -webkit-background-clip: text; /* 2. (webkit前缀) 将背景裁剪到文字 */
+    background-clip: text; /* 2. (标准属性) 将背景裁剪到文字 */
+    -webkit-text-fill-color: transparent; /* 3. (webkit前缀) 让文字填充色透明 */
+    color: transparent; /* 3. (标准属性) 让文字颜色透明 */
+    font-weight: bold;
+    margin-top: 10px;
+}
+.downloadBtnsDiv {
+    margin-top: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 140px;
+}
+.downloadBtnDiv {
+    width: 240px;
+    height: 90px;
+    border-radius: 10px;
+    background-color: #fff;
+    cursor: pointer;
+    transition: all 0.5s ease;
+    border: 1px solid #afafaf;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+.downloadBtnDiv:hover {
+    box-shadow: 0 0 10px 0 rgba(143, 143, 143, 0.4);
+}
+.downloadBtnDiv:active {
+    background-color: #eeeeee;
+}
+
+.downloadBtnDiv:not(:first-child) {
+    margin-left: 200px;
+}
+.downloadBtnText {
+    font-size: 24px;
+    line-height: 1;
+    margin-left: 14px;
+    margin-top: 2px;
+}
+
+.willHaveDiv {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    font-size: 14px;
+    color: #555454;
+    transform: translateY(calc(100% + 6px));
+}

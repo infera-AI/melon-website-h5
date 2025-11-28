@@ -3,6 +3,17 @@ document.addEventListener('DOMContentLoaded', function() {
     // 加载Header和Footer
     loadHeader();
     loadFooter();
+
+    // if (window.location.hostname.indexOf(melonsAIHost) === -1) {
+    //     let downloadDom = document.getElementById('downloadAppDiv')
+    //     if (downloadDom) {
+    //         downloadDom.style.display = 'flex'
+    //     }
+    // }
+    let downloadDom = document.getElementById('downloadAppDiv')
+    if (downloadDom) {
+        downloadDom.style.display = 'flex'
+    }
     
     // 初始化语言
     initLanguage();
@@ -12,9 +23,32 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // 初始化产品下拉菜单
     initProductDropdown();
+
+    // 初始化国内国外不一样的对方
+    initAppDiffcate()
 });
 
-const melonsHost = 'sinobiz.biz'
+const melonsAIHost = 'sinobiz.biz'
+// const melonsAIHost = 'localhost'
+
+function initAppDiffcate() {
+
+    // 即将上线dom
+    let willHaveDivDom = document.getElementById('willHaveDiv')
+
+    if (window.location.hostname.indexOf(melonsAIHost) === -1) {
+        // 国内版本
+        if (willHaveDivDom) {
+            willHaveDivDom.innerText = languageData[currentLang]['will-have']
+        }
+
+    } else {
+        // 国外版本
+
+    }
+    
+    
+}
 
 // 加载Header
 function loadHeader() {
@@ -26,7 +60,7 @@ function loadHeader() {
                 headerPlaceholder.innerHTML = html;
 
                 let headLogoTextDom = document.getElementById('header-logo-text-id')
-                if (window.location.hostname.indexOf(melonsHost) === -1) {
+                if (window.location.hostname.indexOf(melonsAIHost) === -1) {
                     headLogoTextDom.innerHTML = 'Melons'
                 } else {
                     headLogoTextDom.innerHTML = 'Sinobiz'
@@ -54,7 +88,7 @@ function loadFooter() {
                 let addressTextDom = document.getElementById('footer-company-address-text')
                 let descTextDom = document.getElementById('footer-desc-text')
                 let beianDom = document.getElementById('chinaBeian')
-                if (window.location.hostname.indexOf(melonsHost) === -1) {
+                if (window.location.hostname.indexOf(melonsAIHost) === -1) {
                     companyTextDom.style = 'display: none;'
                     addressTextDom.innerHTML = `Room 23B, Jian'an Shanhai Center, No. 8000 Shennan Boulevard, Xiangling Community, Xiangmihu Sub-district, Futian District, Shenzhen City `
                     companyTextDom2.innerHTML = 'melonai.com.cn'
@@ -132,7 +166,8 @@ const languageData = {
         'footer-contact': '联系我们',
         'footer-privacy': '隐私政策',
         'footer-terms': '使用条款',
-        'footer-dmca': 'DMCA政策'
+        'footer-dmca': 'DMCA政策',
+        'will-have': '即将上线'
     },
     en: {
         // Navigation
@@ -169,14 +204,21 @@ const languageData = {
         'footer-contact': 'Contact',
         'footer-privacy': 'Privacy Policy',
         'footer-terms': 'Terms of Use',
-        'footer-dmca': 'DMCA Policy'
+        'footer-dmca': 'DMCA Policy',
+        'will-have': '即将上线1111'
     }
 };
 
 // 初始化语言
 function initLanguage() {
     const savedLang = localStorage.getItem('preferred-language') || 'zh';
-    currentLang = savedLang;
+    // currentLang = savedLang;
+    if (window.location.hostname.indexOf(melonsAIHost) === -1) {
+        currentLang = 'zh'
+    } else {
+        currentLang = 'en'
+    }
+    
     
     setTimeout(() => {
         updateLanguageDisplay();
@@ -253,6 +295,23 @@ function updatePageContent(lang) {
     });
 }
 
+function downloadFileByUrl(url, filename) {
+  // 创建隐藏的<a>标签
+  const a = document.createElement('a');
+  // 设置下载地址
+  a.href = url;
+  // 设置自定义文件名（可选，不设置则用原文件名）
+  a.download = filename || '';
+  // 隐藏标签（不影响页面）
+  a.style.display = 'none';
+  // 添加到页面
+  document.body.appendChild(a);
+  // 模拟点击下载
+  a.click();
+  // 下载后移除标签（清理 DOM）
+  document.body.removeChild(a);
+}
+
 // 初始化通知功能
 function initNotifications() {
     // 标记单个消息为已读
@@ -263,6 +322,23 @@ function initNotifications() {
             if (notificationItem) {
                 notificationItem.classList.remove('unread');
                 updateNotificationBadge();
+            }
+        }
+
+        if (e.target.closest('#ios-download-button')) {
+            // console.log('111111111111---', languageData[currentLang]['will-have']);
+            
+            
+        }
+
+        if (e.target.closest('#android-download-button')) {
+            console.log('2222222222222');
+            let cnApk = "https://source.melonai.com.cn/app-melon-release-11-28-00-25.apk"
+            if (window.location.hostname.indexOf(melonsAIHost) === -1) {
+                // 国内
+                downloadFileByUrl(cnApk, '')
+            } else {
+                // 国外
             }
         }
     });
