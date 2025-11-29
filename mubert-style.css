@@ -1288,3 +1288,18 @@ body {
     color: #555454;
     transform: translateY(calc(100% + 6px));
 }
+
+@media (max-width: 768px) {
+    .app-header__nav-container {
+        font-size: 12px;
+    }
+
+    .logo-text {
+        font-size: 20px;
+    }
+
+    .new-button_size_m {
+        padding: 4px 6px;
+        font-size: 12px;
+    }
+}
