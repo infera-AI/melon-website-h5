@@ -33,17 +33,36 @@ const melonsAIHost = 'sinobiz.biz'
 
 function initAppDiffcate() {
 
+    let appNameDom = document.getElementById('melon-logo-text')
+
     // 即将上线dom
     let willHaveDivDom = document.getElementById('willHaveDiv')
 
+    // google pay下载按钮
+    let googlePlayDom = document.getElementById('google-download-button')
+
     if (window.location.hostname.indexOf(melonsAIHost) === -1) {
         // 国内版本
+        if (appNameDom) {
+            appNameDom.innerText = 'Melons'
+        }
         if (willHaveDivDom) {
             willHaveDivDom.innerText = languageData[currentLang]['will-have']
         }
 
+        // 双重判断：元素存在 + 元素有父元素（避免已被删除的情况）
+        if (googlePlayDom && googlePlayDom.parentNode) {
+            googlePlayDom.parentNode.removeChild(googlePlayDom);
+        }
+
     } else {
         // 国外版本
+        if (appNameDom) {
+            appNameDom.innerText = 'Melons AI'
+        }
+        if (googlePlayDom) {
+            googlePlayDom.style.display = 'flex'
+        }
 
     }
     
@@ -328,17 +347,33 @@ function initNotifications() {
         if (e.target.closest('#ios-download-button')) {
             // console.log('111111111111---', languageData[currentLang]['will-have']);
             
+            if (window.location.hostname.indexOf(melonsAIHost) === -1) {
+                // window.open(`https://apps.apple.com/app/id${}`, '_blank');
+            } else {
+                // Melons AI 苹果商店地址
+                window.open(`https://apps.apple.com/app/id6752956615`, '_blank');
+            }
+            
+        }
+
+        if (e.target.closest('#google-download-button')) {
+            // 谷歌play按钮只在海外官网中展示
+            // Melons AI 苹果商店地址
+            window.open(`https://play.google.com/store/apps/details?id=com.melon.melons`, '_blank');
             
         }
 
         if (e.target.closest('#android-download-button')) {
-            console.log('2222222222222');
-            let cnApk = "https://source.melonai.com.cn/app-melon-release-11-28-00-25.apk"
+            // console.log('2222222222222');
+            
+            let cnApk = `https://source.melonai.com.cn/app-melon-release.apk?v=${Date.now()}`
+            let otherApk = `https://source.melonai.com.cn/app-melons-release.apk?v=${Date.now()}`
             if (window.location.hostname.indexOf(melonsAIHost) === -1) {
                 // 国内
                 downloadFileByUrl(cnApk, '')
             } else {
                 // 国外
+                downloadFileByUrl(otherApk, '')
             }
         }
     });
