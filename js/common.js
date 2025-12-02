@@ -348,7 +348,7 @@ function initNotifications() {
             // console.log('111111111111---', languageData[currentLang]['will-have']);
             
             if (window.location.hostname.indexOf(melonsAIHost) === -1) {
-                // window.open(`https://apps.apple.com/app/id${}`, '_blank');
+                window.open(`https://apps.apple.com/cn/app/melons/id6755325772`, '_blank');
             } else {
                 // Melons AI 苹果商店地址
                 window.open(`https://apps.apple.com/app/id6752956615`, '_blank');
