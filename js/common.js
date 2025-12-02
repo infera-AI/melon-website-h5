@@ -36,7 +36,7 @@ function initAppDiffcate() {
     let appNameDom = document.getElementById('melon-logo-text')
 
     // 即将上线dom
-    let willHaveDivDom = document.getElementById('willHaveDiv')
+    // let willHaveDivDom = document.getElementById('willHaveDiv')
 
     // google pay下载按钮
     let googlePlayDom = document.getElementById('google-download-button')
@@ -46,9 +46,9 @@ function initAppDiffcate() {
         if (appNameDom) {
             appNameDom.innerText = 'Melons'
         }
-        if (willHaveDivDom) {
-            willHaveDivDom.innerText = languageData[currentLang]['will-have']
-        }
+        // if (willHaveDivDom) {
+        //     willHaveDivDom.innerText = languageData[currentLang]['will-have']
+        // }
 
         // 双重判断：元素存在 + 元素有父元素（避免已被删除的情况）
         if (googlePlayDom && googlePlayDom.parentNode) {
