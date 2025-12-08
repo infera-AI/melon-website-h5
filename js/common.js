@@ -41,6 +41,17 @@ function initAppDiffcate() {
     // google pay下载按钮
     let googlePlayDom = document.getElementById('google-download-button')
 
+    let wxTip = document.getElementById('wx-tip')
+
+    wxTip.addEventListener('wheel', (e) => {
+        e.preventDefault(); // 阻止滚轮滚动穿透
+    }, { passive: false });
+    wxTip.addEventListener('touchmove', (e) => {
+        e.preventDefault(); // 阻止touchmove滚动穿透
+    }, { passive: false });
+
+    let wxTipText = document.getElementById('wx-tip-left')
+
     if (window.location.hostname.indexOf(melonsAIHost) === -1) {
         // 国内版本
         if (appNameDom) {
@@ -55,6 +66,10 @@ function initAppDiffcate() {
             googlePlayDom.parentNode.removeChild(googlePlayDom);
         }
 
+        if (wxTipText) {
+            wxTipText.innerText = '点击右上角按钮，然后使用默认浏览器打开，即可安装'
+        }
+
     } else {
         // 国外版本
         if (appNameDom) {
@@ -62,6 +77,10 @@ function initAppDiffcate() {
         }
         if (googlePlayDom) {
             googlePlayDom.style.display = 'flex'
+        }
+
+        if (wxTipText) {
+            wxTipText.innerText = 'Click the button in the upper right corner and open it using the default browser to install'
         }
 
     }
@@ -331,8 +350,21 @@ function downloadFileByUrl(url, filename) {
   document.body.removeChild(a);
 }
 
+function isWeChatBrowser() {
+  // 兼容获取 userAgent（部分环境下 navigator.userAgent 可能被隐藏）
+  const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+  
+  // 核心判断：检测是否包含 MicroMessenger 标识
+  return /MicroMessenger/i.test(userAgent);
+}
+
 // 初始化通知功能
 function initNotifications() {
+    let wxTip = document.getElementById('wx-tip')
+    wxTip.addEventListener('click', function(e) {
+        wxTip.classList.remove('wx-tip-visible');
+        wxTip.classList.add('wx-tip-hidden');
+    })
     // 标记单个消息为已读
     document.addEventListener('click', function(e) {
         if (e.target.closest('.notification-action')) {
@@ -346,6 +378,21 @@ function initNotifications() {
 
         if (e.target.closest('#ios-download-button')) {
             // console.log('111111111111---', languageData[currentLang]['will-have']);
+
+            // 使用示例
+            if (isWeChatBrowser()) {
+                console.log("当前是微信浏览器");
+                let wxTip = document.getElementById('wx-tip')
+                if (wxTip) {
+                    wxTip.classList.remove('wx-tip-hidden');
+                    wxTip.classList.add('wx-tip-visible');   
+                }
+                // 执行微信浏览器专属逻辑（如调用微信 JS-SDK、显示微信专属提示等）
+                return
+            } else {
+                console.log("当前不是微信浏览器");
+                // 执行其他浏览器逻辑
+            }
             
             if (window.location.hostname.indexOf(melonsAIHost) === -1) {
                 window.open(`https://apps.apple.com/cn/app/melons/id6755325772`, '_blank');
@@ -357,6 +404,20 @@ function initNotifications() {
         }
 
         if (e.target.closest('#google-download-button')) {
+            // 使用示例
+            if (isWeChatBrowser()) {
+                console.log("当前是微信浏览器");
+                let wxTip = document.getElementById('wx-tip')
+                if (wxTip) {
+                    wxTip.classList.remove('wx-tip-hidden');
+                    wxTip.classList.add('wx-tip-visible');   
+                }
+                // 执行微信浏览器专属逻辑（如调用微信 JS-SDK、显示微信专属提示等）
+                return
+            } else {
+                console.log("当前不是微信浏览器");
+                // 执行其他浏览器逻辑
+            }
             // 谷歌play按钮只在海外官网中展示
             // Melons AI 苹果商店地址
             window.open(`https://play.google.com/store/apps/details?id=com.melon.melons`, '_blank');
@@ -364,9 +425,23 @@ function initNotifications() {
         }
 
         if (e.target.closest('#android-download-button')) {
+            // 使用示例
+            if (isWeChatBrowser()) {
+                console.log("当前是微信浏览器");
+                let wxTip = document.getElementById('wx-tip')
+                if (wxTip) {
+                    wxTip.classList.remove('wx-tip-hidden');
+                    wxTip.classList.add('wx-tip-visible');   
+                }
+                // 执行微信浏览器专属逻辑（如调用微信 JS-SDK、显示微信专属提示等）
+                return
+            } else {
+                console.log("当前不是微信浏览器");
+                // 执行其他浏览器逻辑
+            }
             // console.log('2222222222222');
             
-            let cnApk = `https://source.melonai.com.cn/app-melon-release.apk?v=${Date.now()}`
+            let cnApk = `https://source.melonai.com.cn/app-melon-release-V_1_0_8.apk?v=${Date.now()}`
             let otherApk = `https://source.melonai.com.cn/app-melons-release.apk?v=${Date.now()}`
             if (window.location.hostname.indexOf(melonsAIHost) === -1) {
                 // 国内
