@@ -441,7 +441,7 @@ function initNotifications() {
             }
             // console.log('2222222222222');
             
-            let cnApk = `https://source.melonai.com.cn/app-melon-release-V_1_1_0.apk?v=${Date.now()}`
+            let cnApk = `https://source.melonai.com.cn/app-melon-release-V_1_1_3.apk?v=${Date.now()}`
             let otherApk = `https://source.melonai.com.cn/app-melons-release-V_1_1_4.apk?v=${Date.now()}`
             if (window.location.hostname.indexOf(melonsAIHost) === -1) {
                 // 国内
